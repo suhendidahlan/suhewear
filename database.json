@@ -1,0 +1,6 @@
+{
+  "provinces": [
+    { "id": 1, "title": "Jawa Barat" },
+    { "id": 2, "title": "DKI Jakarta" }
+  ]
+}

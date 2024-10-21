@@ -1,0 +1,240 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+ 
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@map("sessions")
+}
+ 
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  password String?
+  role String @default("user")
+  accounts      Account[]
+  sessions      Session[]
+ 
+  @@map("users")
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model followus {
+  id String @id @default(cuid())
+  title String
+  image String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model admin {
+  id String @id @default(cuid())
+  title String
+  image String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model youtube {
+  id String @id @default(cuid())
+  title String
+  kode String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model aboutus {
+  id String @id @default(cuid())
+  title String
+  isi String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model carousel {
+  id String @id @default(cuid())
+  title String
+  image String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model catalog {
+  id String @id @default(cuid())
+  title String
+  image String
+  pola String
+  kerah String
+  kategori String
+  jenis String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model gallery {
+  id String @id @default(cuid())
+  title String
+  image String
+  kategori String
+  sub String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model bahan {
+  id String @id @default(cuid())
+  title String
+  image String
+  ket String
+  cabor String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model kerah {
+  id String @id @default(cuid())
+  title String
+  image String
+  ket String
+  cabor String
+  kategori String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model pola {
+  id String @id @default(cuid())
+  title String
+  image String
+  ket String
+  cabor String
+  kategori String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model custom_banner {
+  id String @id @default(cuid())
+  title String
+  image String
+  ket String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model produk {
+  id String @id @default(cuid())
+  title String
+  image1 String
+  image2 String
+  image3 String
+  jenis String
+  kategori String
+  sub1 String @default("no data")
+  sub2 String @default("no data")
+  sub3 String @default("no data")
+  berat Int
+  size_xs Int
+  size_s Int
+  size_m Int
+  size_l Int
+  size_xl Int
+  size_xxl Int
+  size_xxxl Int
+  harga Int
+  harga_disc Int @default(0)
+  disc_label String @default("no")
+  status String @default("on sale")
+  deskripsi String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model trsingle {
+  id String @id @default(cuid())
+  user_id String
+  nama String
+  email String
+  wa String
+  id_product String
+  nama_product String
+  harga Int
+  size String
+  qty Int
+  berat Int
+  keterangan String
+  ongkir Int
+  pajak Int
+  disc Int
+  total Int
+  kurir String
+  alamat_kirim String
+  city String
+  hp String
+  update_kirim String @default("belum")
+  status_kirim String @default("Menunggu Pembayaran")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model chart {
+  id String @id @default(cuid())
+  id_product String
+  nama_product String
+  image_product String
+  size String
+  qty Int
+  berat Int
+  harga Int
+  user_id String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
