@@ -5,12 +5,20 @@ import type { produk } from "@prisma/client";
 import Select from "react-select";
 import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
-import { getImageById } from "@/components/products/data";
 
 declare global {
   interface Window {
     snap: any;
   }
+}
+
+interface optionPicked {
+  label: string;
+  value: string;
+}
+interface optionKurir {
+  label: number;
+  value: number;
 }
 
 let rupiah = Intl.NumberFormat("id-ID", {
@@ -30,15 +38,17 @@ const BuyNowCard = ({ data }: { data: produk }) => {
   const [city, setCity] = useState("");
   const [ket, setKet] = useState("");
 
-  const [optionPicked, setOptionPicked] = useState({});
-  const [optionKurir, setOptionKurir] = useState(0);
+  const [optionPicked, setOptionPicked] = useState<optionPicked>();
+  const [optionKurir, setOptionKurir] = useState<optionKurir>();
   const berat = (data.berat * qty) / 1000;
 
   const stok = 5;
 
+  const kotaPilih = optionPicked ? optionPicked.value : "";
+
   const sub_total = data.harga * qty;
   const pajak_jml = data.harga * qty * 0.11;
-  const ongkir_jml = optionKurir.value * qty;
+  const ongkir_jml = optionKurir ? optionKurir.value * qty : 0;
   const [disc_jml, setDiscJml] = useState(0);
   const [inputDisc, setInputDisc] = useState("");
 
@@ -352,9 +362,7 @@ const BuyNowCard = ({ data }: { data: produk }) => {
             />
             <div className="text-sm mx-2 my-1">Layanan Kurir (per qty) :</div>
             <Select
-              options={listKurir.filter(
-                (list) => list.id_city === optionPicked.value
-              )}
+              options={listKurir.filter((list) => list.id_city === kotaPilih)}
               value={optionKurir}
               onChange={(e: any) => setOptionKurir(e)}
               placeholder="Pilih Kurir..."

@@ -1,6 +1,5 @@
 import { getImageById } from "@/components/products/data";
 import { notFound } from "next/navigation";
-import { useEffect } from "react";
 import Script from "next/script";
 import { auth } from "@/auth";
 import BuyNowCardUser from "@/components/products/buy-now-card-user";

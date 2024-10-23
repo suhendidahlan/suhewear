@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect } from "react";
 import { Carousel, initTWE } from "tw-elements";
 
@@ -21,34 +22,41 @@ const Slide1 = () => {
       data-twe-ride="carousel"
     >
       <div className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-        //First item
         <div
           className="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
           data-twe-carousel-item
           data-twe-carousel-active
         >
-          <img
+          <Image
             src="/header1.jpg"
             className="block w-full"
             alt="Wild Landscape"
+            width={300}
+            height={300}
           />
         </div>
-        // Second Item
         <div
           className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
           data-twe-carousel-item
         >
-          <img src="/header2.jpg" className="block w-full" alt="Camera" />
+          <Image
+            src="/header2.jpg"
+            className="block w-full"
+            alt="Camera"
+            width={300}
+            height={300}
+          />
         </div>
-        // Third item
         <div
           className="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
           data-twe-carousel-item
         >
-          <img
+          <Image
             src="/header3.jpg"
             className="block w-full"
             alt="Exotic Fruits"
+            width={300}
+            height={300}
           />
         </div>
       </div>

@@ -1,19 +1,25 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import type { chart } from "@prisma/client";
 import Select from "react-select";
 import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
-import { DeleteButton } from "@/components/chart/button";
 import { useFormState } from "react-dom";
 import { storeData } from "@/components/checkout/actions";
-import { getProductById } from "./data";
 
 declare global {
   interface Window {
     snap: any;
   }
+}
+
+interface optionPicked {
+  label: string;
+  value: string;
+}
+interface optionKurir {
+  label: string;
+  value: number;
 }
 
 let rupiah = Intl.NumberFormat("id-ID", {
@@ -22,37 +28,26 @@ let rupiah = Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-const ChartCard = ({ data, user_id }: { data: chart; user_id: string }) => {
+const ChartCard = ({
+  data,
+  user_id,
+  id_product,
+  title,
+  size,
+  finalHarga,
+  finalqty,
+  berat,
+}: {
+  data: chart;
+  user_id: string;
+  id_product: string;
+  title: string;
+  size: string;
+  finalHarga: number;
+  finalqty: number;
+  berat: number;
+}) => {
   const [state, formAction] = useFormState(storeData, null);
-
-  const id_product = [data.map((list: chart) => list.id_product)].reduce(
-    (a: string, b: string) => a + ", " + b
-  );
-
-  const title = [
-    data.map(
-      (list: chart) =>
-        list.nama_product + " : " + list.qty + " (" + list.size + ")"
-    ),
-  ].reduce((a: string, b: string) => a + ", " + b);
-
-  const size = [data.map((list: chart) => list.size)].reduce(
-    (a: string, b: string) => a + ", " + b
-  );
-
-  //set harga products
-  const finalHarga = data
-    .map((list: chart) => list.harga * list.qty)
-    .reduce((a: number, b: number) => a + b, 0);
-
-  //set qty
-  const finalqty = data
-    .map((list: chart) => list.qty)
-    .reduce((a: number, b: number) => a + b, 0);
-
-  const berat = data
-    .map((list: chart) => list.berat)
-    .reduce((a: number, b: number) => a + b, 0);
 
   const [qty, setQty] = useState(1);
   const [nama, setNama] = useState("");
@@ -64,18 +59,21 @@ const ChartCard = ({ data, user_id }: { data: chart; user_id: string }) => {
   const [ket, setKet] = useState("");
   const keterangan = "multi : " + ket;
 
-  const [optionPicked, setOptionPicked] = useState({});
-  const [optionKurir, setOptionKurir] = useState(0);
+  const [optionPicked, setOptionPicked] = useState<optionPicked>();
+  const [optionKurir, setOptionKurir] = useState<optionKurir>();
 
-  const courier = optionKurir.label;
+  const courier = optionKurir ? optionKurir.label : "";
+
+  const kotaPilih = optionPicked ? optionPicked.value : "";
 
   const sub_total = finalHarga;
   const pajak_jml = finalHarga * 0.11;
-  const ongkir_jml: number = optionKurir.value * finalqty;
+  const ongkir_jml: number = optionKurir ? optionKurir.value * finalqty : 0;
   const disc_jml: number = 0;
   const total: number = sub_total + pajak_jml + ongkir_jml - disc_jml;
 
-  const alamatLengkap = alamat + ", " + optionPicked.label;
+  const alamatBelumLengkap = optionPicked ? optionPicked.label : "";
+  const alamatLengkap = alamat + alamatBelumLengkap;
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -108,45 +106,7 @@ const ChartCard = ({ data, user_id }: { data: chart; user_id: string }) => {
   }
 
   return (
-    <div key={data.id}>
-      <div className="mx-4 my-2">
-        <div className="text-xl font-bold my-3 border-b">Checkout</div>
-        {data.map((data: chart) => (
-          <div className="mt-6">
-            <div className="flex justify-between">
-              <div className="">
-                <DeleteButton id={data.id} />
-              </div>
-              <Image
-                src={data.image_product}
-                alt=""
-                width={70}
-                height={70}
-                className="m-1"
-              />
-              <div className="">
-                <div className="mx-1 text-[13px] font-medium">
-                  {data.nama_product}
-                </div>
-                <div className="mx-1 text-[11px] text-slate-500 italic">
-                  Weight : {data.berat * qty} gr
-                </div>
-                <div className="mx-1 text-[11px] text-slate-500 italic">
-                  Size : {data.size}
-                </div>
-                <div className="mx-1 text-[11px] text-slate-500 italic">
-                  Quantity : {data.qty} pcs
-                </div>
-              </div>
-
-              <div className="m-1 text-sm font-medium text-slate-500">
-                {rupiah.format(data.harga)}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
+    <div>
       <form action={formAction}>
         <div className="mx-8 mt-1 mb-5 flex justify-center">
           <input
@@ -287,9 +247,7 @@ const ChartCard = ({ data, user_id }: { data: chart; user_id: string }) => {
             />
             <div className="text-sm mx-2 my-1">Layanan Kurir (per qty) :</div>
             <Select
-              options={listKurir.filter(
-                (list) => list.id_city === optionPicked.value
-              )}
+              options={listKurir.filter((list) => list.id_city === kotaPilih)}
               value={optionKurir}
               onChange={(e: any) => setOptionKurir(e)}
               placeholder="Pilih Kurir..."
@@ -362,7 +320,7 @@ const ChartCard = ({ data, user_id }: { data: chart; user_id: string }) => {
         <input
           type="text"
           name="city"
-          value={optionPicked.label}
+          value={alamatBelumLengkap}
           className="hidden"
         />
         <input

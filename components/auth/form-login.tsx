@@ -59,12 +59,11 @@ export default function FormLogin() {
         <SubmitButton label="login" />
       </div>
       <div className="text-sm">
-        Already haven't an account ?
+        Already havent an account ?
         <p className="text-sm italic font-medium">
-          Klik{" "}
-          <Link href={`/register`} className="text-blue-500">
+          <Link href="/register" className="text-blue-500">
             Register
-          </Link>{" "}
+          </Link>
           here
         </p>
       </div>

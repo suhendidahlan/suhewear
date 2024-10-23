@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import Image from "next/image";
 
 const getData = async () => {
   try {
@@ -24,7 +25,11 @@ export default async function Gambar1() {
           data-twe-carousel-item
           data-twe-carousel-active
         >
-          <img src={data.image} className="block w-full" alt="Wild Landscape" />
+          <Image
+            src={data.image}
+            className="block w-full"
+            alt="Wild Landscape"
+          />
         </div>
       ))}
     </div>

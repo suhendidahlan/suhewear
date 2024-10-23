@@ -139,6 +139,8 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       multipart: true,
     });
     imagePath1 = url;
+  } else {
+    imagePath1 = "";
   }
 
   let imagePath2;
@@ -148,6 +150,8 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       multipart: true,
     });
     imagePath2 = url;
+  } else {
+    imagePath2 = "";
   }
 
   let imagePath3;
@@ -157,6 +161,8 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       multipart: true,
     });
     imagePath3 = url;
+  } else {
+    imagePath3 = "";
   }
 
   try {

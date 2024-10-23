@@ -24,11 +24,13 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   const role: any = session?.user.role;
-  const products: any = await getListProducts(session?.user.id);
+  const userID: any = session?.user.id;
+  const products: any = await getListProducts(userID);
+  const list: number = session ? products.length : 0;
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar data={session} products={products} role={role} />
+        <Navbar data={session} products={products} role={role} list={list} />
         <br className="mt-14" />
         {children}
         <Footer1 />

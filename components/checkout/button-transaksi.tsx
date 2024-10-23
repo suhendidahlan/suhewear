@@ -5,7 +5,7 @@ import { deleteData } from "@/components/checkout/actions";
 import type { trsingle } from "@prisma/client";
 import { getDataById } from "@/components/checkout/data";
 
-export const ButtonTransaksi = ({ id }: { id: string }) => {
+export const ButtonTransaksi = ({ id }: { id: any }) => {
   async function handleSubmit(e: any) {
     e.preventDefault();
     // const produk = await getDataById(id);

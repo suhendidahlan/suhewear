@@ -16,16 +16,14 @@ const Navbar = ({
   data,
   products,
   role,
+  list,
 }: {
   data: any;
   products: chart;
   role: string;
+  list: number;
 }) => {
   const [navbar, setNavbar] = useState(false);
-  const list: number = products.length;
-  if (!data) {
-    products.length = 0;
-  }
 
   return (
     <>

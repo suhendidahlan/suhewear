@@ -14,6 +14,15 @@ declare global {
   }
 }
 
+interface optionPicked {
+  label: string;
+  value: string;
+}
+interface optionKurir {
+  label: string;
+  value: number;
+}
+
 let rupiah = Intl.NumberFormat("id-ID", {
   style: "currency",
   currency: "IDR",
@@ -40,17 +49,21 @@ const BuyNowCardUser = ({
   const [ket, setKet] = useState("");
   const keterangan = "single : " + ket;
 
-  const [optionPicked, setOptionPicked] = useState({});
-  const [optionKurir, setOptionKurir] = useState(0);
+  const [optionPicked, setOptionPicked] = useState<optionPicked>();
+  const [optionKurir, setOptionKurir] = useState<optionKurir>();
   const berat = (data.berat * qty) / 1000;
 
   const stok = 5;
 
-  const alamatLengkap = alamat + ", " + optionPicked.label;
+  const alamatBelumLengkap = optionPicked ? optionPicked.label : "";
+  const alamatLengkap = alamat + alamatBelumLengkap;
 
   const sub_total = data.harga * qty;
   const pajak_jml = data.harga * qty * 0.11;
-  const ongkir_jml = optionKurir.value * qty;
+  const ongkir_jml = optionKurir ? optionKurir.value * qty : 0;
+
+  const kotaPilih = optionPicked ? optionPicked.value : "";
+  const courier = optionKurir ? optionKurir.label : "";
 
   const [disc_jml, setDiscJml] = useState(0);
   const [inputDisc, setInputDisc] = useState("");
@@ -329,9 +342,7 @@ const BuyNowCardUser = ({
             />
             <div className="text-sm mx-2 my-1">Layanan Kurir (per qty) :</div>
             <Select
-              options={listKurir.filter(
-                (list) => list.id_city === optionPicked.value
-              )}
+              options={listKurir.filter((list) => list.id_city === kotaPilih)}
               value={optionKurir}
               onChange={(e: any) => setOptionKurir(e)}
               placeholder="Pilih Kurir..."
@@ -426,16 +437,11 @@ const BuyNowCardUser = ({
         <input type="text" name="pajak" value={pajak_jml} className="hidden" />
         <input type="text" name="disc" value={disc_jml} className="hidden" />
         <input type="text" name="total" value={total} className="hidden" />
-        <input
-          type="text"
-          name="kurir"
-          value={optionKurir.label}
-          className="hidden"
-        />
+        <input type="text" name="kurir" value={courier} className="hidden" />
         <input
           type="text"
           name="city"
-          value={optionPicked.label}
+          value={alamatBelumLengkap}
           className="hidden"
         />
         <input
