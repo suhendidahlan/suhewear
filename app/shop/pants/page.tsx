@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { getDataByCat } from "@/components/shop/data";
 import FilterStore from "@/components/products/filter-store";
 
 let rupiah = Intl.NumberFormat("id-ID", {
@@ -9,20 +9,8 @@ let rupiah = Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-const getData = async () => {
-  try {
-    const result = await prisma.produk.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { kategori: "pants" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
-
 const ShopPantsPage = async () => {
-  const produk = await getData();
+  const produk = await getDataByCat("pants");
   return (
     <>
       <div className="px-8 py-2 text-xl font-bold mt-4">PANTS by SUHE</div>

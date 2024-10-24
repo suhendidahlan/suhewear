@@ -1,15 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { getData } from "@/components/icons/youtube/data";
 
-const getData = async () => {
-  try {
-    const result = await prisma.youtube.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 export default async function ViewYoutube() {
   const youtube = await getData();
   return (

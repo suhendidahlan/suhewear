@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 
-export const getImages = async () => {
+export const getData = async () => {
   try {
     const result = await prisma.followus.findMany({
       orderBy: { createdAt: "desc" },
@@ -11,7 +11,7 @@ export const getImages = async () => {
   }
 };
 
-export const getImageById = async (id: string) => {
+export const getDataById = async (id: string) => {
   try {
     const result = await prisma.followus.findUnique({
       where: { id },

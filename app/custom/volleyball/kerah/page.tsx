@@ -1,23 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
-import FilterGallery1 from "@/components/gallery/filter-gallery1";
+import { getImagesByCat } from "@/components/custom/kerah/data";
 import { FiArrowLeft } from "react-icons/fi";
 
-const getData = async () => {
-  try {
-    const result = await prisma.kerah.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { cabor: "volleyball" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
-
 export default async function VolleyballKerahPage() {
-  const data = await getData();
+  const data = await getImagesByCat("volleyball");
   return (
     <div className="mb-10">
       <div className="px-8 py-3 text-slate-800 italic font-bold text-xl">

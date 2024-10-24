@@ -1,19 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import { DeleteButton } from "@/components/gallery/button";
 import React from "react";
-
-const getData = async () => {
-  try {
-    const result = await prisma.gallery.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
+import { getData } from "@/components/gallery/data";
 
 export default async function Gallery() {
   const images = await getData();

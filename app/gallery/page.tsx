@@ -1,18 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import FilterGallery1 from "@/components/gallery/filter-gallery1";
-
-const getData = async () => {
-  try {
-    const result = await prisma.gallery.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
+import { getData } from "@/components/gallery/data";
 
 export default async function GalleryPage() {
   const data = await getData();

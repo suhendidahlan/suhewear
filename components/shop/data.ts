@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 
 export const getData = async () => {
   try {
-    const result = await prisma.gallery.findMany({
+    const result = await prisma.produk.findMany({
       orderBy: { createdAt: "desc" },
     });
     return result;
@@ -13,7 +13,7 @@ export const getData = async () => {
 
 export const getDataByCat = async (cat: string) => {
   try {
-    const result = await prisma.gallery.findMany({
+    const result = await prisma.produk.findMany({
       orderBy: { createdAt: "desc" },
       where: { kategori: cat },
     });
@@ -25,7 +25,7 @@ export const getDataByCat = async (cat: string) => {
 
 export const getDataById = async (id: string) => {
   try {
-    const result = await prisma.gallery.findUnique({
+    const result = await prisma.produk.findUnique({
       where: { id },
     });
     return result;

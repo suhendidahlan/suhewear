@@ -1,18 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getData } from "@/components/catalog/data";
 import { DeleteButton } from "@/components/catalog/button";
-
-const getData = async () => {
-  try {
-    const result = await prisma.catalog.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 
 export default async function Catalog() {
   const images = await getData();

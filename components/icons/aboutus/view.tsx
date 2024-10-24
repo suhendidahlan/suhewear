@@ -1,15 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { getData } from "@/components/icons/aboutus/data";
 
-const getData = async () => {
-  try {
-    const result = await prisma.aboutus.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 const DeskripsiOwner = async () => {
   const deskripsi = await getData();
   return (

@@ -1,22 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getDataByCat } from "@/components/gallery/data";
 import FilterGallery1 from "@/components/gallery/filter-gallery1";
 
-const getData = async () => {
-  try {
-    const result = await prisma.gallery.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { kategori: "sporty" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
-
 export default async function GalleryPage() {
-  const data = await getData();
+  const data = await getDataByCat("sporty");
   return (
     <div className="mb-10">
       <div className="px-5 py-3 text-slate-800 italic font-bold text-xl">

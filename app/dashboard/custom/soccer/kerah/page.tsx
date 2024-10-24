@@ -1,22 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
-import { DeleteButton } from "@/components/custom/pola/button";
-
-const getData = async () => {
-  try {
-    const result = await prisma.kerah.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { cabor: "soccer" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
+import { getImagesByCat } from "@/components/custom/kerah/data";
+import { DeleteButton } from "@/components/custom/kerah/button";
 
 export default async function Gallery() {
-  const images = await getData();
+  const images = await getImagesByCat("soccer");
   return (
     <>
       <div className="max-w-screen-lg mx-auto py-14">

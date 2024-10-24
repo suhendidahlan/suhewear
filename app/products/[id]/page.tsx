@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { getImageById } from "@/components/products/data";
 import { notFound } from "next/navigation";

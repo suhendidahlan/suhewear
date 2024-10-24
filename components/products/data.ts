@@ -11,6 +11,18 @@ export const getImages = async () => {
   }
 };
 
+export const getImagesByCat = async (cat: string) => {
+  try {
+    const result = await prisma.produk.findMany({
+      orderBy: { createdAt: "desc" },
+      where: { kategori: cat },
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to fetch images");
+  }
+};
+
 export const getImageById = async (id: string) => {
   try {
     const result = await prisma.produk.findUnique({

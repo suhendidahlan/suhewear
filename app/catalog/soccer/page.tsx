@@ -1,22 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getDataByCat } from "@/components/catalog/data";
 import FilterCatalog1 from "@/components/catalog/filter-catalog1";
 
-const getData = async () => {
-  try {
-    const result = await prisma.catalog.findMany({
-      orderBy: { createdAt: "desc" },
-      where: { kategori: "soccer" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
-
 export default async function CatalogPage() {
-  const data = await getData();
+  const data = await getDataByCat("soccer");
   return (
     <div className="mb-10">
       <div className="px-5 py-3 text-slate-800 italic font-bold text-xl">

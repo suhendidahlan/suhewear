@@ -1,9 +1,9 @@
-import { getImageById } from "@/components/icons/followus/data";
+import { getDataById } from "@/components/icons/followus/data";
 import { notFound } from "next/navigation";
 import EditForm from "@/components/icons/followus/edit-form";
 
 const EditPage = async ({ params }: { params: { id: string } }) => {
-  const data = await getImageById(params.id);
+  const data = await getDataById(params.id);
   if (!data) return notFound;
   return (
     <div className="min-h-screen flex items-center justify-center br-slate-100">

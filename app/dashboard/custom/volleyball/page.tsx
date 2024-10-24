@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { FiArrowLeft } from "react-icons/fi";
-
 export default function CustomAdmin() {
   return (
     <div className="mb-10">
