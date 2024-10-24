@@ -2,7 +2,6 @@
 import { useFormState } from "react-dom";
 import { SubmitButton } from "./button";
 import { signUpCredentials } from "@/components/auth/actions";
-import { Input, initTWE } from "tw-elements";
 import { FiEyeOff, FiEye } from "react-icons/fi";
 import { useState } from "react";
 import Link from "next/link";
