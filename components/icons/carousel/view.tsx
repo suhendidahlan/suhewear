@@ -28,7 +28,7 @@ const Slide1 = () => {
           data-twe-carousel-active
         >
           <Image
-            src="/header1.jpg"
+            src={`/header1.jpg`}
             className="block w-full"
             alt="Wild Landscape"
             width={300}
@@ -40,7 +40,7 @@ const Slide1 = () => {
           data-twe-carousel-item
         >
           <Image
-            src="/header2.jpg"
+            src={`/header2.jpg`}
             className="block w-full"
             alt="Camera"
             width={300}
@@ -52,7 +52,7 @@ const Slide1 = () => {
           data-twe-carousel-item
         >
           <Image
-            src="/header3.jpg"
+            src={`/header3.jpg`}
             className="block w-full"
             alt="Exotic Fruits"
             width={300}

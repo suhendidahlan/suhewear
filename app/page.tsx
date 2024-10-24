@@ -1,4 +1,3 @@
-import Slide1 from "@/components/icons/carousel/view";
 import CustomJersey from "@/components/custom/custom-jersey";
 import DeskripsiOwner from "@/components/icons/aboutus/view";
 import GosokKupon from "@/components/footer/gosok-kupon";
@@ -10,7 +9,6 @@ import ProdukTerbaru from "@/components/products/product-terbaru";
 export default function Home() {
   return (
     <>
-      <Slide1 />
       <ProdukTerbaru />
       <ProdukKategori />
       <br />
