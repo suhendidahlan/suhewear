@@ -4,7 +4,7 @@ import { del, put } from "@vercel/blob";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { getImageById } from "./data";
+import { getDataById } from "./data";
 
 //SCHEMA
 
@@ -92,7 +92,7 @@ export const updateData = async (
     };
   }
 
-  const data = await getImageById(id);
+  const data = await getDataById(id);
   if (!data) return { message: "No Data Found" };
 
   const { title, image, kategori, sub } = validatedFields.data;
@@ -130,7 +130,7 @@ export const updateData = async (
 //Delete Image
 
 export const deleteData = async (id: string) => {
-  const data = await getImageById(id);
+  const data = await getDataById(id);
   if (!data) return { message: "No data found" };
   await del(data.image);
   try {
