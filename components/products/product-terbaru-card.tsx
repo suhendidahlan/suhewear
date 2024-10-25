@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getDataProductTerbaru } from "@/components/products/data";
 
 let rupiah = Intl.NumberFormat("id-ID", {
   style: "currency",
@@ -9,19 +9,8 @@ let rupiah = Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
-const getData = async () => {
-  try {
-    const result = await prisma.produk.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 8,
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 const ProdukTerbaruCard = async () => {
-  const images = await getData();
+  const images = await getDataProductTerbaru();
   return (
     <div className="mx-2 container flex overflow-x-scroll min-w-full">
       {images.map((data) => (

@@ -11,7 +11,7 @@ import { getImageById } from "./data";
 const UploadSchemaCarousel = z.object({
   title: z.string().min(1),
   image: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size > 0, { message: "Image is required!" })
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
@@ -24,7 +24,7 @@ const UploadSchemaCarousel = z.object({
 const EditSchemaCarousel = z.object({
   title: z.string().min(1),
   image: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
     })

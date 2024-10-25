@@ -1,7 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { getListProducts } from "@/components/chart/data";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 

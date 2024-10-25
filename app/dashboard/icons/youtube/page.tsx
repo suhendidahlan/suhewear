@@ -1,17 +1,6 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getData } from "@/components/icons/youtube/data";
 import { DeleteButton } from "@/components/icons/youtube/button";
-
-const getData = async () => {
-  try {
-    const result = await prisma.youtube.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 
 export default async function Youtube() {
   const youtube = await getData();

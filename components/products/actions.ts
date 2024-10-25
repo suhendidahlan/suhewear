@@ -11,7 +11,7 @@ import { getImageById } from "./data";
 const UploadSchema = z.object({
   title: z.string().min(1),
   image1: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size > 0, { message: "Image is required!" })
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
@@ -20,7 +20,7 @@ const UploadSchema = z.object({
       message: "image must less than 4MB",
     }),
   image2: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size > 0, { message: "Image is required!" })
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
@@ -29,7 +29,7 @@ const UploadSchema = z.object({
       message: "image must less than 4MB",
     }),
   image3: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size > 0, { message: "Image is required!" })
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
@@ -54,7 +54,7 @@ const UploadSchema = z.object({
 const EditSchema = z.object({
   title: z.string().min(1),
   image1: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
     })
@@ -63,7 +63,7 @@ const EditSchema = z.object({
     })
     .optional(),
   image2: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
     })
@@ -72,7 +72,7 @@ const EditSchema = z.object({
     })
     .optional(),
   image3: z
-    .instanceof(File)
+    .any()
     .refine((file) => file.size === 0 || file.type.startsWith("image/"), {
       message: "only images are allowed",
     })

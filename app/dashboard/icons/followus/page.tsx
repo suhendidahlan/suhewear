@@ -1,18 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getData } from "@/components/icons/followus/data";
 import { DeleteButton } from "@/components/icons/followus/button";
-
-const getData = async () => {
-  try {
-    const result = await prisma.followus.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
 
 export default async function FollowUs() {
   const images = await getData();

@@ -33,3 +33,15 @@ export const getImageById = async (id: string) => {
     throw new Error("Failed to fetch images");
   }
 };
+
+export const getDataProductTerbaru = async () => {
+  try {
+    const result = await prisma.produk.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to fetch images");
+  }
+};

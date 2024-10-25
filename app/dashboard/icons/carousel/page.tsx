@@ -1,21 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { getImages } from "@/components/icons/carousel/data";
 import { DeleteButton } from "@/components/icons/carousel/button";
 
-const getData = async () => {
-  try {
-    const result = await prisma.carousel.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
-
 export default async function Carousel() {
-  const images = await getData();
+  const images = await getImages();
   return (
     <>
       <div className="max-w-screen-lg mx-auto py-14">

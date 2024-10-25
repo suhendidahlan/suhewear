@@ -1,17 +1,6 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import { DeleteButton } from "@/components/icons/aboutus/button";
-
-const getData = async () => {
-  try {
-    const result = await prisma.aboutus.findMany({
-      orderBy: { createdAt: "desc" },
-    });
-    return result;
-  } catch (error) {
-    throw new Error("Failed to fetch images");
-  }
-};
+import { getData } from "@/components/icons/aboutus/data";
 
 export default async function DescOwner() {
   const deskripsi = await getData();
