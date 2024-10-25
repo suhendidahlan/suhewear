@@ -13,7 +13,7 @@ export default async function GalleryPage() {
       <FilterGallery1 />
       <div className="flex justify-around items-center">
         <div className="m-2 grid grid-cols-2 max-w-screen">
-          {data.map((img) => (
+          {data?.map((img) => (
             <div key={img.id} className="bg-slate-100 m-1">
               <Link href={img.image}>
                 <Image

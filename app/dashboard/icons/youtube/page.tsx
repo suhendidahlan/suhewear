@@ -17,7 +17,7 @@ export default async function Youtube() {
           </Link>
         </div>
         <div className="md:grid-cols-3 gap-5 mt-10 mx-5">
-          {youtube.map((item) => (
+          {youtube?.map((item) => (
             <div
               className="max-w-sm border border-gray-200 rounded-md shadow"
               key={item.id}

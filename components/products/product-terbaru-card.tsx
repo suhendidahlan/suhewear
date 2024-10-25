@@ -13,7 +13,7 @@ const ProdukTerbaruCard = async () => {
   const images = await getDataProductTerbaru();
   return (
     <div className="mx-2 container flex overflow-x-scroll min-w-full">
-      {images.map((data) => (
+      {images?.map((data) => (
         <div
           className="m-0.5 block text-center min-w-40 rounded-md"
           key={data.id}

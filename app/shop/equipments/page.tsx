@@ -16,7 +16,7 @@ const ShopEquipmentsPage = async () => {
       <div className="px-8 py-2 text-xl font-bold mt-4">EQUIPMENTS by SUHE</div>
       <FilterStore />
       <div className="container grid grid-cols-2 max-w-full my-4">
-        {produk.map((data) => (
+        {produk?.map((data) => (
           <div className="m-0.5 block text-center rounded-md" key={data.id}>
             <div className="p-2 flex justify-center">
               {data.status === "sold out" ? (

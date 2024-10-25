@@ -18,7 +18,7 @@ export default async function Gallery() {
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5 mt-10 mx-5">
-          {images.map((item) => (
+          {images?.map((item) => (
             <div
               className="max-w-sm border border-gray-200 rounded-md shadow"
               key={item.id}

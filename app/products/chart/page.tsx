@@ -61,7 +61,7 @@ export default async function ChartPage() {
       <div>
         <div className="mx-4 my-2">
           <div className="text-xl font-bold my-3 border-b">Checkout</div>
-          {data.map((data: chart) => (
+          {data?.map((data: chart) => (
             <div className="mt-6" key={data.id}>
               <div className="flex justify-between">
                 <div className="">

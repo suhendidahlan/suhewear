@@ -31,7 +31,7 @@ const riwayatTrans = async () => {
           <div className="text-lg font-bold my-3 mx-6 border-b">
             Daftar Riwayat Transaksi
           </div>
-          {getData.map((list: trsingle) => (
+          {getData?.map((list: trsingle) => (
             <div className="" key={list.id}>
               <div className="w-full m-1 flex">
                 <p className="text-sm p-1 mr-2">1</p>
