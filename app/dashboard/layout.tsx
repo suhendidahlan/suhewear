@@ -1,14 +1,16 @@
 import NavbarAdmin1 from "@/components/navbar/navbar-admin1";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "SUHE Apparel | Dashboard Admin",
+  description: "SUHE Activewear Apparel Admin Page",
+};
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-  if (!session || !session.user || session.user.role !== "admin") redirect("/");
   return (
     <div>
       <NavbarAdmin1 />
