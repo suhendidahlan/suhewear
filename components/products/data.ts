@@ -45,3 +45,15 @@ export const getDataProductTerbaru = async () => {
     throw new Error("Failed to fetch images");
   }
 };
+
+//dashboard
+export const getDataProducts = async () => {
+  try {
+    const result = await prisma.produk.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to fetch images");
+  }
+};

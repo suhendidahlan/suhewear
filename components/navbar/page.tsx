@@ -188,17 +188,25 @@ const Navbar = ({
             <div className="mt-80 flex justify-between items-center">
               <div className="flex justify-start items-center">
                 {data.user.image ? (
-                  <Image
-                    src={data.user.image}
-                    alt="user image"
-                    width={50}
-                    height={50}
-                    className="rounded-2xl"
-                  />
+                  <Link href={`/user`} onClick={() => setNavbar(!navbar)}>
+                    <Image
+                      src={data.user.image}
+                      alt="user image"
+                      width={50}
+                      height={50}
+                      className="rounded-2xl"
+                    />
+                  </Link>
                 ) : (
-                  <FaRegUserCircle size={30} className="mx-4" />
+                  <Link href={`/user`} onClick={() => setNavbar(!navbar)}>
+                    <FaRegUserCircle size={30} className="mx-4" />
+                  </Link>
                 )}
-                <Link href="" className="p-2 italic text-sm font-medium">
+                <Link
+                  href={`/user`}
+                  className="p-2 italic text-sm font-medium"
+                  onClick={() => setNavbar(!navbar)}
+                >
                   {data.user.name}
                 </Link>
               </div>

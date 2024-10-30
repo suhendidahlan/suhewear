@@ -1,9 +1,5 @@
 "use client";
-
 import type { trsingle } from "@prisma/client";
-import { ButtonTransaksi, DeleteButton } from "./button-transaksi";
-import { getDataById } from "@/components/checkout/data";
-import { useState } from "react";
 
 let rupiah = Intl.NumberFormat("id-ID", {
   style: "currency",

@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import { FiMenu, FiXSquare } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import { useState } from "react";
@@ -44,7 +42,7 @@ const NavbarAdmin1 = () => {
             GALLERY/IMAGES
           </Link>
           <Link href="" className="mx-4 hover:text-slate-400">
-            LAINNYA
+            TRANSACTIONS
           </Link>
         </div>
       </nav>
@@ -108,8 +106,12 @@ const NavbarAdmin1 = () => {
             </Link>
           </ul>
           <ul className="my-4 flex justify-between">
-            <Link href="" className="" onClick={() => setNavbar(!navbar)}>
-              LAINNYA
+            <Link
+              href="/dashboard/transactions"
+              className=""
+              onClick={() => setNavbar(!navbar)}
+            >
+              TRANSACTIONS
             </Link>
           </ul>
         </div>
@@ -147,7 +149,7 @@ const NavbarAdmin1 = () => {
           </ul>
           <ul className="my-4 flex justify-between">
             <Link href="" className="">
-              LAINNYA
+              TRANSACTIONS
             </Link>
             <FiArrowRight className="opacity-50" />
           </ul>

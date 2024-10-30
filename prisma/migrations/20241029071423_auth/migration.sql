@@ -33,6 +33,7 @@ CREATE TABLE "users" (
     "email" TEXT,
     "email_verified" TIMESTAMP(3),
     "image" TEXT,
+    "isActive" BOOLEAN NOT NULL DEFAULT false,
     "password" TEXT,
     "role" TEXT NOT NULL DEFAULT 'user',
 

@@ -1,9 +1,6 @@
 "use client";
 import { useFormStatus } from "react-dom";
-import { clsx } from "clsx";
 import { deleteData } from "@/components/checkout/actions";
-import type { trsingle } from "@prisma/client";
-import { getDataById } from "@/components/checkout/data";
 
 export const ButtonTransaksi = ({ id }: { id: any }) => {
   async function handleSubmit(e: any) {
@@ -63,7 +60,7 @@ const DeleteBtn = () => {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending}>
-      {pending ? "Deleting..." : "Cancel"}
+      {pending ? "Deleting..." : "Delete"}
     </button>
   );
 };

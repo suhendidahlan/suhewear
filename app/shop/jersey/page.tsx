@@ -39,7 +39,7 @@ const ShopJerseyPage = async () => {
                 <div>
                   {data.disc_label === "no" ? (
                     <div>
-                      <Link href={`products/${data.id}`}>
+                      <Link href={`/products/${data.id}`}>
                         <Image
                           className="rounded-md"
                           src={data.image1}
@@ -54,7 +54,7 @@ const ShopJerseyPage = async () => {
                       <div className="bg-green-700 text-white text-xs rounded-lg absolute p-1.5 italic">
                         {data.disc_label}
                       </div>
-                      <Link href={`products/${data.id}`}>
+                      <Link href={`/products/${data.id}`}>
                         <Image
                           className="rounded-md"
                           src={data.image1}
@@ -72,7 +72,7 @@ const ShopJerseyPage = async () => {
               {data.status === "sold out" ? (
                 <div>{data.title}</div>
               ) : (
-                <Link href={`products/${data.id}`}>{data.title}</Link>
+                <Link href={`/products/${data.id}`}>{data.title}</Link>
               )}
             </div>
             {data.harga_disc > 0 ? (

@@ -26,9 +26,9 @@ export default function FormLogin() {
             <p className="text-sm text-red-500 mt-2">{state?.error?.email}</p>
           </div>
         </div>
-        <div className="mx-2 my-6">
+        <div className="mx-2 my-2">
           <div className="flex justify-between items-center">
-            <div className="relative mb-3 w-full">
+            <div className="relative w-full">
               <input
                 type={eye ? "text" : "password"}
                 name="password"
@@ -56,16 +56,21 @@ export default function FormLogin() {
             </p>
           </div>
         </div>
-        <SubmitButton label="login" />
+        <Link
+          href={`/user/lupa-password`}
+          className="text-sm text-slate-700 italic"
+        >
+          Forgot Password?
+        </Link>
       </div>
-      <div className="text-sm">
-        Already havent an account ?
+      <SubmitButton label="login" />
+      <div className="text-sm my-6">
         <p className="text-sm italic font-medium">
-          <Link href="/register" className="text-blue-500">
-            Register
-          </Link>
-          here
+          Already have not an account ?
         </p>
+        <Link href="/register" className="text-blue-500 underline">
+          Klik Register Here
+        </Link>
       </div>
     </form>
   );

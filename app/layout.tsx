@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/page";
 import Footer1 from "@/components/footer/footer1";
 import { auth } from "@/auth";
 import { getListProducts } from "@/components/chart/data";
+import { redirect } from "next/navigation";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -31,7 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <Navbar data={session} products={products} role={role} list={list} />
-        <br className="mt-14" />
+        <div className="h-20"></div>
         {children}
         <Footer1 />
       </body>

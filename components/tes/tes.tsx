@@ -5,10 +5,10 @@ const Tes = () => {
   async function handleSubmit(e: any) {
     e.preventDefault();
     const newItem = {
-      email: "suhendydahlan@gmail.com",
+      id: "cm2t5cxr10000io3abw6tlsbh",
     };
 
-    const response = await fetch("/api/emailer", {
+    const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

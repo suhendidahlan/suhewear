@@ -21,7 +21,7 @@ const riwayatTrans = async () => {
   const getData: any = await getDataUser(user_id);
 
   return (
-    <div className="h-full mb-48">
+    <div className="h-full mb-8">
       <Script
         src={process.env.NEXT_PUBLIC_MIDTRANS_SNAP_URL}
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
@@ -31,10 +31,10 @@ const riwayatTrans = async () => {
           <div className="text-lg font-bold my-3 mx-6 border-b">
             Daftar Riwayat Transaksi
           </div>
-          {getData?.map((list: trsingle) => (
+          {getData?.map((list: trsingle, i: any) => (
             <div className="" key={list.id}>
               <div className="w-full m-1 flex">
-                <p className="text-sm p-1 mr-2">1</p>
+                <p className="text-sm p-1 mr-2">{i + 1}</p>
                 <div className="flex justify-between w-full">
                   <div className="">
                     <div className="text-[15px] font-medium">

@@ -1,5 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CiShirt } from "react-icons/ci";
+import { GiPoloShirt } from "react-icons/gi";
+import { IoLogoUsd } from "react-icons/io";
+import { SlSizeActual } from "react-icons/sl";
 
 export default function CustomAdmin() {
   return (
@@ -7,57 +10,35 @@ export default function CustomAdmin() {
       <div className="px-8 py-3 text-slate-800 italic font-bold text-xl">
         SUHE Apparel Admin
       </div>
-      <div className="flex justify-around items-center">
-        <div className="m-2 grid grid-cols-4 max-w-screen">
-          <div className="bg-slate-100 m-1 text-center">
-            <Link href={`/dashboard/custom/running/pola`}>
-              <Image
-                src="/Sport activewear.jpg"
-                alt=""
-                width={170}
-                height={100}
-                className="rounded-md"
-              />
-            </Link>
-            <div className="p-2 text-[14px] font-medium">Pola</div>
-          </div>
-          <div className="bg-slate-100 m-1 text-center">
-            <Link href={`/dashboard/custom/running/kerah`}>
-              <Image
-                src="/Sport activewear.jpg"
-                alt=""
-                width={170}
-                height={100}
-                className="rounded-md"
-              />
-            </Link>
-            <div className="p-2 text-[14px] font-medium">Kerah</div>
-          </div>
-          <div className="bg-slate-100 m-1 text-center">
-            <Link href="">
-              <Image
-                src="/Sport activewear.jpg"
-                alt=""
-                width={170}
-                height={100}
-                className="rounded-md"
-              />
-            </Link>
-            <div className="p-2 text-[14px] font-medium">Harga</div>
-          </div>
-          <div className="bg-slate-100 m-1 text-center">
-            <Link href="">
-              <Image
-                src="/Sport activewear.jpg"
-                alt=""
-                width={170}
-                height={100}
-                className="rounded-md"
-              />
-            </Link>
-            <div className="p-2 text-[14px] font-medium">Size</div>
-          </div>
-        </div>
+      <div className="grid grid-cols-4 mx-8">
+        <Link
+          className="bg-slate-200 m-2 p-2 text-xs font-bold italic rounded-md"
+          href={`/dashboard/custom/running/pola`}
+        >
+          <CiShirt size={30} />
+          <p>Pola</p>
+        </Link>
+        <Link
+          className="bg-slate-200 m-2 p-2 text-xs font-bold italic rounded-md"
+          href={`/dashboard/custom/running/kerah`}
+        >
+          <GiPoloShirt size={30} />
+          <p>Kerah</p>
+        </Link>
+        <Link
+          className="bg-slate-200 m-2 p-2 text-xs font-bold italic rounded-md"
+          href={``}
+        >
+          <IoLogoUsd size={30} />
+          <p>Harga</p>
+        </Link>
+        <Link
+          className="bg-slate-200 m-2 p-2 text-xs font-bold italic rounded-md"
+          href={``}
+        >
+          <SlSizeActual size={30} />
+          <p>Size</p>
+        </Link>
       </div>
     </div>
   );

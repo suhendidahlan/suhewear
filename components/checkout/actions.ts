@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { getDataById } from "./data";
 
 const UploadSchema = z.object({
   user_id: z.string().min(1),
@@ -24,6 +25,11 @@ const UploadSchema = z.object({
   alamat_kirim: z.string().min(1),
   hp: z.string().min(1),
   city: z.string().min(1),
+});
+
+const EditSchema = z.object({
+  status_kirim: z.string().min(1),
+  update_kirim: z.string().min(1),
 });
 
 //STORE
@@ -109,5 +115,43 @@ export const deleteData = async (id: string) => {
   } catch (error) {
     return { message: "Failed to delete data" };
   }
-  revalidatePath("/");
+  revalidatePath("/dashboard/transactions");
+  redirect("/dashboard/transactions");
+};
+
+//EDIT ADMIN TRANSACTION
+
+export const updateDataTransaction = async (
+  id: string,
+  prevState: unknown,
+  formData: FormData
+) => {
+  const validatedFields = EditSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
+
+  if (!validatedFields.success) {
+    return {
+      error: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const data = await getDataById(id);
+  if (!data) return { message: "No Data Found" };
+
+  const { status_kirim, update_kirim } = validatedFields.data;
+
+  try {
+    await prisma.trsingle.update({
+      data: {
+        status_kirim,
+        update_kirim,
+      },
+      where: { id },
+    });
+  } catch (error) {
+    return { message: "Failed to update data" };
+  }
+  revalidatePath("/dashboard/transactions");
+  redirect("/dashboard/transactions");
 };

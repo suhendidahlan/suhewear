@@ -46,10 +46,11 @@ model Session {
  
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
+  name          String
+  email         String   @unique
   emailVerified DateTime? @map("email_verified")
-  image         String?
+  image         String @default("/user.jpg")
+  isActive Boolean @default(false)
   password String?
   role String @default("user")
   accounts      Account[]

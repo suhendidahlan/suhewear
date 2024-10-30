@@ -1,24 +1,24 @@
 import { NextResponse } from "next/server";
-import { hashSync } from "bcrypt-ts";
 import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
-import Mail from "nodemailer/lib/mailer";
 
 export async function POST(request: any) {
   const { email } = await request.json();
 
   var transport = nodemailer.createTransport({
-    host: "live.smtp.mailtrap.io",
-    port: 587,
+    service: "gmail",
     auth: {
-      user: "smtp@mailtrap.io",
-      pass: "2ed9ded66f1c7282152efbfaf932a672",
+      user: "suhendidahlan1997@gmail.com",
+      pass: "vhsr pvfi hwem axcf",
     },
   });
 
   const sendEmail = await transport.sendMail({
-    from: "hi@demomailtrap.com",
+    from: "apparel@suheapp.com",
     to: email,
+    envelope: {
+      from: "Daemon <apparel@suheapp.com>", // used as MAIL FROM: address for SMTP
+      to: email, // used as RCPT TO: address for SMTP
+    },
     subject: "dari suhendi",
     text: "suhendi dahlan apparel",
     html: "hello world",

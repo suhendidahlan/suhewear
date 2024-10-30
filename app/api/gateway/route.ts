@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
-import type { chart, trsingle } from "@prisma/client";
-import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
-import { redirect } from "next/navigation";
 import midtransClient from "midtrans-client";
-import { getDataById } from "@/components/checkout/data";
 
 let snap = new midtransClient.Snap({
-  isProduction: false,
+  isProduction: process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION,
   serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
 });
 

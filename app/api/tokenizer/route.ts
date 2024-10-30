@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 let snap = new midtransClient.Snap({
-  isProduction: false,
+  isProduction: process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION,
   serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
 });
 

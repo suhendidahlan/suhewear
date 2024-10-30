@@ -1,5 +1,7 @@
 import NavbarAdmin1 from "@/components/navbar/navbar-admin1";
 import type { Metadata } from "next";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "SUHE Apparel | Dashboard Admin",
@@ -11,6 +13,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  if (!session || !session.user || session.user.role !== "admin") redirect("/");
   return (
     <div>
       <NavbarAdmin1 />
