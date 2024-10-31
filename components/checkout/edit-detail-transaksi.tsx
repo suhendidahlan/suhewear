@@ -2,7 +2,7 @@
 import type { trsingle } from "@prisma/client";
 import { updateDataTransaction } from "@/components/checkout/actions";
 import { useFormState } from "react-dom";
-import { DeleteButton } from "@/components/checkout/button-transaksi";
+import { DeleteButtonAdmin } from "@/components/checkout/button-transaksi";
 
 let rupiah = Intl.NumberFormat("id-ID", {
   style: "currency",
@@ -137,7 +137,7 @@ const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
             </div>
           </div>
         </div>
-        <DeleteButton id={data.id} />
+        <DeleteButtonAdmin id={data.id} />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function CustomSoccerPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/soccer/pola`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -32,10 +32,10 @@ export default function CustomSoccerPage() {
           dapat dipadukan.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/soccer/pola" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/soccer/pola">
             <FiArrowRight />
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default function CustomSoccerPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/soccer/kerah`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -64,10 +64,10 @@ export default function CustomSoccerPage() {
           tersendiri.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/soccer/kerah" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/soccer/kerah">
             <FiArrowRight />
           </Link>
         </div>
@@ -122,7 +122,7 @@ export default function CustomSoccerPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/soccer/bahan`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -136,10 +136,10 @@ export default function CustomSoccerPage() {
           menyerap keringat.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/soccer/bahan" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/soccer/bahan">
             <FiArrowRight />
           </Link>
         </div>
@@ -155,7 +155,7 @@ export default function CustomSoccerPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}
@@ -203,7 +203,7 @@ export default function CustomSoccerPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}
@@ -252,7 +252,7 @@ export default function CustomSoccerPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}

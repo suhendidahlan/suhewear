@@ -11,16 +11,16 @@ export default async function RunningKerahPage() {
         Jenis Kerah Soccer Jersey by SUHE
       </div>
       <div className="flex justify-around items-center">
-        <div className="m-2 grid grid-cols-2 max-w-screen">
+        <div className="m-2 grid grid-cols-2 laptop:grid-cols-4 max-w-screen">
           {data?.map((img) => (
             <div key={img.id} className="bg-slate-100 m-1 text-center">
               <Link href={img.image}>
                 <Image
                   src={img.image}
                   alt=""
-                  width={170}
-                  height={100}
-                  className="rounded-md"
+                  width={400}
+                  height={400}
+                  className="rounded-md laptop:w-[300px]"
                 />
               </Link>
               <div className="p-2 text-[14px] font-medium">{img.title}</div>

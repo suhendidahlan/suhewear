@@ -115,6 +115,18 @@ export const deleteData = async (id: string) => {
   } catch (error) {
     return { message: "Failed to delete data" };
   }
+  revalidatePath("/products/checkout/transaksi");
+  redirect("/products/checkout/transaksi");
+};
+
+export const deleteDataAdmin = async (id: string) => {
+  try {
+    await prisma.trsingle.delete({
+      where: { id },
+    });
+  } catch (error) {
+    return { message: "Failed to delete data" };
+  }
   revalidatePath("/dashboard/transactions");
   redirect("/dashboard/transactions");
 };

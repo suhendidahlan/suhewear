@@ -32,7 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <Navbar data={session} products={products} role={role} list={list} />
-        <div className="h-20"></div>
+        <div className="h-20 laptop:h-24"></div>
         {children}
         <Footer1 />
       </body>

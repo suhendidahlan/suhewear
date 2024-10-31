@@ -3,7 +3,7 @@ import Link from "next/link";
 const GosokKupon = () => {
   return (
     <>
-      <div className="m-5 text-center p-4 bg-slate-800 text-white">
+      <div className="m-5 text-center p-4 bg-slate-900 text-white">
         <p className="text-2xl font-bold my-4">PUNYA KUPON ?</p>
         <div className="mb-3 mt-1 text-white text-[13px] p-2 rounded-md text-center mx-28 border">
           <Link href="">Gosok Di Sini</Link>

@@ -18,7 +18,7 @@ export default async function ProdukPage({
   return (
     <div>
       <CardProduct data={data} session={session} />
-      <div>
+      <div className="tablet:mx-10 laptop:mx-14">
         <div className="px-6 py-2 text-lg font-bold mt-4">
           NEW PRODUCTS ARRIVALS
         </div>

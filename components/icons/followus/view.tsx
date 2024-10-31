@@ -22,11 +22,11 @@ const CardFollowUs = async () => {
             <div className="p-1">
               <Link href={`https://www.instagram.com/suhe.apparel/`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md laptop:w-[300px]"
                   src={ig.image}
                   alt={ig.title}
-                  width={180}
-                  height={200}
+                  width={300}
+                  height={300}
                 />
               </Link>
             </div>

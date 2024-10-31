@@ -26,7 +26,7 @@ const riwayatTrans = async () => {
         src={process.env.NEXT_PUBLIC_MIDTRANS_SNAP_URL}
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
       />
-      <div className="">
+      <div className="tablet:mx-10 laptop:mx-14 laptop:w-1/2">
         <div className="mx-4 my-2">
           <div className="text-lg font-bold my-3 mx-6 border-b">
             Daftar Riwayat Transaksi

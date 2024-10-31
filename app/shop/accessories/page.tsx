@@ -17,7 +17,7 @@ const ShopAccessoriesPage = async () => {
         ACCESSORIES by SUHE
       </div>
       <FilterStore />
-      <div className="container grid grid-cols-2 max-w-full my-4">
+      <div className="container grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 max-w-full my-4">
         {produk?.map((data) => (
           <div className="m-0.5 block text-center rounded-md" key={data.id}>
             <div className="p-2 flex justify-center">
@@ -28,7 +28,7 @@ const ShopAccessoriesPage = async () => {
                   </div>
                   <div>
                     <Image
-                      className="rounded-md opacity-50 grayscale"
+                      className="rounded-md opacity-50 grayscale tablet:w-[300px] laptop:w-[400px]"
                       src={data.image1}
                       alt={data.title}
                       width={160}
@@ -42,7 +42,7 @@ const ShopAccessoriesPage = async () => {
                     <div>
                       <Link href={`/products/${data.id}`}>
                         <Image
-                          className="rounded-md"
+                          className="rounded-md tablet:w-[300px] laptop:w-[400px]"
                           src={data.image1}
                           alt={data.title}
                           width={160}
@@ -57,7 +57,7 @@ const ShopAccessoriesPage = async () => {
                       </div>
                       <Link href={`/products/${data.id}`}>
                         <Image
-                          className="rounded-md"
+                          className="rounded-md tablet:w-[300px] laptop:w-[400px]"
                           src={data.image1}
                           alt={data.title}
                           width={160}

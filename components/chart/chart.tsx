@@ -107,7 +107,10 @@ const ChartCard = ({
 
   return (
     <div>
-      <form action={formAction}>
+      <form
+        action={formAction}
+        className="tablet:mx-14 laptop:mx-14 laptop:w-1/2"
+      >
         <div className="mx-8 mt-1 mb-5 flex justify-center">
           <input
             type="text"

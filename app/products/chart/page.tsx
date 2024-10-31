@@ -59,20 +59,20 @@ export default async function ChartPage() {
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
       />
       <div>
-        <div className="mx-4 my-2">
+        <div className="mx-4 my-2 tablet:mx-14 laptop:mx-14">
           <div className="text-xl font-bold my-3 border-b">Checkout</div>
           {data?.map((data: chart) => (
             <div className="mt-6" key={data.id}>
-              <div className="flex justify-between">
+              <div className="flex justify-between tablet:justify-around laptop:justify-around">
                 <div className="">
                   <DeleteButton id={data.id} />
                 </div>
                 <Image
                   src={data.image_product}
                   alt=""
-                  width={70}
-                  height={70}
-                  className="m-1"
+                  width={200}
+                  height={200}
+                  className="m-1 w-[70px] laptop:w-[200px]"
                 />
                 <div className="">
                   <div className="mx-1 text-[13px] font-medium">

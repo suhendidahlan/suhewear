@@ -1,6 +1,6 @@
 "use client";
 import { useFormStatus } from "react-dom";
-import { deleteData } from "@/components/checkout/actions";
+import { deleteData, deleteDataAdmin } from "@/components/checkout/actions";
 
 export const ButtonTransaksi = ({ id }: { id: any }) => {
   async function handleSubmit(e: any) {
@@ -56,7 +56,28 @@ export const DeleteButton = ({ id }: { id: string }) => {
   );
 };
 
+export const DeleteButtonAdmin = ({ id }: { id: string }) => {
+  const deleteImageWithId = deleteDataAdmin.bind(null, id);
+  return (
+    <form
+      action={deleteImageWithId}
+      className="text-sm bg-slate-200 rounded-lg p-2 w-full m-2 text-center"
+    >
+      <DeleteBtnAdmin />
+    </form>
+  );
+};
+
 const DeleteBtn = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? "Canceling..." : "Cancel"}
+    </button>
+  );
+};
+
+const DeleteBtnAdmin = () => {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending}>

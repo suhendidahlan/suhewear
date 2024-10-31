@@ -26,11 +26,11 @@ const ProdukTerbaruCard = async () => {
                 </div>
                 <div>
                   <Image
-                    className="rounded-md opacity-50 grayscale"
+                    className="rounded-md opacity-50 grayscale laptop:w-[300px]"
                     src={data.image1}
                     alt={data.title}
-                    width={160}
-                    height={200}
+                    width={300}
+                    height={300}
                   />
                 </div>
               </div>
@@ -40,11 +40,11 @@ const ProdukTerbaruCard = async () => {
                   <div>
                     <Link href={`/products/${data.id}`}>
                       <Image
-                        className="rounded-md"
+                        className="rounded-md laptop:w-[300px]"
                         src={data.image1}
                         alt={data.title}
-                        width={160}
-                        height={200}
+                        width={300}
+                        height={300}
                       />
                     </Link>
                   </div>
@@ -52,11 +52,11 @@ const ProdukTerbaruCard = async () => {
                   <div>
                     <Link href={`/products/${data.id}`}>
                       <Image
-                        className="rounded-md"
+                        className="rounded-md laptop:w-[300px]"
                         src={data.image1}
                         alt={data.title}
-                        width={160}
-                        height={200}
+                        width={300}
+                        height={300}
                       />
                     </Link>
                     <div className="bg-green-700 text-white text-[10px] rounded-lg p-0.5 italic w-[60px]">

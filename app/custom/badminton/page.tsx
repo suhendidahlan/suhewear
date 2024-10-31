@@ -18,7 +18,7 @@ export default function CustomBadmintonPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/badminton/pola`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -32,10 +32,10 @@ export default function CustomBadmintonPage() {
           eveniet deleniti.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/badminton/pola" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/badminton/pola">
             <FiArrowRight />
           </Link>
         </div>
@@ -50,7 +50,7 @@ export default function CustomBadmintonPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/badminton/kerah`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -64,10 +64,10 @@ export default function CustomBadmintonPage() {
           eveniet deleniti.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/badminton/kerah" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/badminton/kerah">
             <FiArrowRight />
           </Link>
         </div>
@@ -124,7 +124,7 @@ export default function CustomBadmintonPage() {
         <div className="p-2 flex justify-center">
           <Link href={`/custom/soccer/bahan`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[300px]"
               src="/Sport activewear.jpg"
               alt=""
               width={160}
@@ -138,10 +138,10 @@ export default function CustomBadmintonPage() {
           eveniet deleniti.
         </p>
         <div className="py-1 px-2 text-[13px] font-medium flex justify-center items-center italic">
-          <Link href="" className="mx-5">
+          <Link href="/custom/soccer/bahan" className="mx-5">
             Lihat Gambar Selengkapnya
           </Link>
-          <Link href="">
+          <Link href="/custom/soccer/bahan">
             <FiArrowRight />
           </Link>
         </div>
@@ -157,7 +157,7 @@ export default function CustomBadmintonPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}
@@ -206,7 +206,7 @@ export default function CustomBadmintonPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}
@@ -255,7 +255,7 @@ export default function CustomBadmintonPage() {
           <div className="p-2 flex justify-center">
             <Link href="">
               <Image
-                className="rounded-md"
+                className="rounded-md tablet:w-[300px]"
                 src="/Sport activewear.jpg"
                 alt=""
                 width={160}

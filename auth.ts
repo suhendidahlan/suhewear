@@ -6,11 +6,12 @@ import { SignInSchema } from "@/components/auth/zod";
 import { compareSync } from "bcrypt-ts";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
-  secret: "adsewfra232",
+  secret: process.env.AUTH_SECRET,
   pages: {
     signIn: "/login",
   },

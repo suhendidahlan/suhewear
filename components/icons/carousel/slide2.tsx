@@ -25,13 +25,13 @@ const Slide2 = () => {
         <Image
           src={`/header${page}.jpg`}
           alt="image"
-          width={300}
-          height={300}
+          width={1440}
+          height={1440}
           className="w-screen"
         />
       </div>
       <div
-        className="z-100 absolute left-4 text-md -translate-y-32 bg-slate-700 opacity-60 p-1 rounded-md"
+        className="z-100 absolute left-4 text-md -translate-y-32 bg-slate-700 opacity-60 p-1 rounded-md tablet:-translate-y-60 laptop:-translate-y-80"
         onClick={handlePrevPage}
       >
         <span className="text-white inline-block transition-transform hover:-translate-x-1 motion-reduce:transform-none cursor-pointer hover:text-violet-500">
@@ -39,7 +39,7 @@ const Slide2 = () => {
         </span>
       </div>
       <div
-        className="z-100 absolute right-4 text-md -translate-y-32 bg-slate-700 opacity-60 p-1 rounded-md"
+        className="z-100 absolute right-4 text-md -translate-y-32 bg-slate-700 opacity-60 p-1 rounded-md tablet:-translate-y-60 laptop:-translate-y-80"
         onClick={handleNextPage}
       >
         <span className="text-white inline-block transition-transform hover:translate-x-1 motion-reduce:transform-none cursor-pointer hover:text-violet-500">

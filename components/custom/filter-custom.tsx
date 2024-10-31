@@ -55,7 +55,7 @@ const FilterCustom = () => {
         </div>
       </nav>
       {navbar ? (
-        <div className="px-8 py-4 bg-white h-screen w-screen duration-200 ease-out absolute">
+        <div className="px-8 py-4 bg-white h-screen w-screen tablet:w-1/3 duration-200 ease-out absolute">
           <ul className="my-4 flex justify-between">
             <Link
               href={`/custom/soccer`}

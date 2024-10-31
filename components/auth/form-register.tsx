@@ -11,7 +11,7 @@ export default function FormRegister() {
   const [eye, setEye] = useState(false);
   const [eye2, setEye2] = useState(false);
   return (
-    <form action={formAction}>
+    <form action={formAction} className="laptop:w-1/2">
       <div className="mx-4 mt-2 mb-6">
         <div className="text-xl font-bold my-3">Sign Up Form</div>
         <div className="mx-2 my-6">

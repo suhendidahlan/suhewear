@@ -12,11 +12,11 @@ const CustomJersey = async () => {
         <div className="p-2 flex justify-center">
           <Link href={`/custom`}>
             <Image
-              className="rounded-md"
+              className="rounded-md tablet:w-[600px]"
               src={`/header4.jpg`}
               alt=""
-              width={300}
-              height={300}
+              width={600}
+              height={600}
             />
           </Link>
         </div>

@@ -11,12 +11,12 @@ export default function CustomPage() {
       </div>
       <FilterCustom />
       <div className="flex justify-center items-center">
-        <div className="mx-2 grid grid-cols-2 ">
+        <div className="mx-2 grid grid-cols-2 tablet:grid-cols-3">
           <div className="m-0.5 block text-center rounded-md">
             <div className="p-2">
               <Link href={`/custom/soccer`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}
@@ -35,7 +35,7 @@ export default function CustomPage() {
             <div className="p-2">
               <Link href={`/custom/basketball`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}
@@ -54,7 +54,7 @@ export default function CustomPage() {
             <div className="p-2">
               <Link href={`/custom/badminton`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}
@@ -73,7 +73,7 @@ export default function CustomPage() {
             <div className="p-2">
               <Link href={`/custom/volleyball`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}
@@ -92,7 +92,7 @@ export default function CustomPage() {
             <div className="p-2">
               <Link href={`/custom/running`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}
@@ -111,7 +111,7 @@ export default function CustomPage() {
             <div className="p-2">
               <Link href="">
                 <Image
-                  className="rounded-md"
+                  className="rounded-md tablet:w-[300px]"
                   src="/Sport activewear.jpg"
                   alt=""
                   width={160}

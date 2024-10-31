@@ -9,7 +9,7 @@ export default function FormLogin() {
   const [state, formAction] = useFormState(signInCredentials, null);
   const [eye, setEye] = useState(false);
   return (
-    <form action={formAction}>
+    <form action={formAction} className="laptop:w-1/2">
       <div className="mx-4 mt-2 mb-6">
         <div className="text-xl font-bold my-3">Sign In Form</div>
         <div className="mx-2 my-6">

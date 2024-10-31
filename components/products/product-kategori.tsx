@@ -7,16 +7,16 @@ const ProdukKategori = () => {
     <>
       <div className="px-6 py-2 text-lg font-bold mt-4">PRODUCT CATEGORIES</div>
       <div className="flex justify-center">
-        <div className="mx-2 grid grid-cols-2 ">
+        <div className="mx-2 grid grid-cols-2 tablet:grid-cols-4">
           <div className="m-0.5 block text-center rounded-md">
             <div className="p-2">
               <Link href={`/shop/jersey`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md laptop:w-[330px]"
                   src="/Sport activewear.jpg"
                   alt=""
-                  width={160}
-                  height={200}
+                  width={400}
+                  height={400}
                 />
               </Link>
             </div>
@@ -31,11 +31,11 @@ const ProdukKategori = () => {
             <div className="p-2">
               <Link href={`/shop/tshirt`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md laptop:w-[330px]"
                   src="/suhe kaos 2.jpg"
                   alt=""
-                  width={160}
-                  height={200}
+                  width={400}
+                  height={400}
                 />
               </Link>
             </div>
@@ -46,15 +46,15 @@ const ProdukKategori = () => {
               </Link>
             </div>
           </div>
-          {/* <div className="m-0.5 block text-center rounded-md">
+          <div className="m-0.5 block text-center rounded-md">
             <div className="p-2">
               <Link href={`/shop/jacket`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md laptop:w-[330px]"
                   src="/Sport activewear.jpg"
                   alt=""
-                  width={160}
-                  height={200}
+                  width={400}
+                  height={400}
                 />
               </Link>
             </div>
@@ -64,16 +64,16 @@ const ProdukKategori = () => {
                 <FiArrowRight />
               </Link>
             </div>
-          </div> */}
-          {/* <div className="m-0.5 block text-center rounded-md">
+          </div>
+          <div className="m-0.5 block text-center rounded-md">
             <div className="p-2">
               <Link href={`/shop/accessories`}>
                 <Image
-                  className="rounded-md"
+                  className="rounded-md laptop:w-[330px]"
                   src="/Sport activewear.jpg"
                   alt=""
-                  width={160}
-                  height={200}
+                  width={400}
+                  height={400}
                 />
               </Link>
             </div>
@@ -83,7 +83,7 @@ const ProdukKategori = () => {
                 <FiArrowRight />
               </Link>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </>

@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const Footer1 = () => {
   return (
-    <div className="bg-slate-800 text-slate-100 p-8">
-      <div className="">
+    <div className="bg-slate-900 text-slate-100 p-8">
+      <div className="tablet:flex tablet:justify-around">
         <div className="my-6">
           <h2 className="mb-1">PRODUCTS</h2>
           <ul className="text-xs">Store</ul>
