@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { getDataById } from "./data";
+import nodemailer from "nodemailer";
 
 const UploadSchema = z.object({
   user_id: z.string().min(1),
@@ -99,6 +100,36 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
     });
   } catch (error) {
     return { message: "Failed to create data" };
+  }
+
+  const pesan: string =
+    "Order Masuk : " +
+    "Nama : " +
+    nama +
+    " , No HP : " +
+    wa +
+    " , Tipe Transaksi : MULTI TRANSACTION " +
+    " , Produk : " +
+    nama_product;
+
+  var transporter = nodemailer.createTransport({
+    service: process.env.NODEMAILER_SERVICE,
+    auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD,
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_USER,
+      to: "suheweardotcom@gmail.com",
+      subject: "ORDER MASUK _ SUHE APPAREL",
+      text: "suhendi dahlan apparel",
+      html: pesan,
+    });
+  } catch (error) {
+    return { message: "Failed to register data" };
   }
 
   revalidatePath("/products/checkout/transaksi");

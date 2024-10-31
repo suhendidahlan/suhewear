@@ -1,3 +1,4 @@
+"use client";
 import Tes from "@/components/tes/tes";
 
 export default async function BuyNowPage() {

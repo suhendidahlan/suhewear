@@ -10,7 +10,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ["http://localhost:3000"],
+      allowedOrigins: ["suheapparel.my.id", "localhost:3000"],
     },
   },
 };

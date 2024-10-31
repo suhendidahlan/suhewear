@@ -1,9 +1,10 @@
 import midtransClient from "midtrans-client";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import nodemailer from "nodemailer";
 
 let snap = new midtransClient.Snap({
-  isProduction: process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION,
+  isProduction: false,
   serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
 });
 
@@ -100,6 +101,38 @@ export async function POST(request: any) {
       city: optionPicked.label,
     },
   });
+
+  const pesan: string =
+    "Order Masuk : " +
+    "Nama : " +
+    nama +
+    " , No HP : " +
+    phone +
+    " , Tipe Transaksi : SINGLE TRANSACTION " +
+    " , Email : " +
+    email +
+    " , Produk : " +
+    title;
+
+  var transporter = nodemailer.createTransport({
+    service: process.env.NODEMAILER_SERVICE,
+    auth: {
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD,
+    },
+  });
+
+  try {
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_USER,
+      to: "suheweardotcom@gmail.com",
+      subject: "ORDER MASUK _ SUHE APPAREL",
+      text: "suhendi dahlan apparel",
+      html: pesan,
+    });
+  } catch (error) {
+    return { message: "Failed to register data" };
+  }
 
   console.log(token, createTransaction);
   return NextResponse.json({ token });

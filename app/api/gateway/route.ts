@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import midtransClient from "midtrans-client";
 
 let snap = new midtransClient.Snap({
-  isProduction: process.env.NEXT_PUBLIC_MIDTRANS_IS_PRODUCTION,
+  isProduction: false,
   serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
 });
 
