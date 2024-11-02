@@ -46,9 +46,6 @@ const riwayatTrans = async () => {
                     <div className="text-[11px] text-slate-500 italic">
                       No Transaksi : {list.id}
                     </div>
-                    <div className="text-[11px] text-slate-500 italic">
-                      Status : {list.status_kirim}
-                    </div>
                   </div>
                   <Link
                     href={`/products/checkout/transaksi/${list.id}`}
@@ -58,7 +55,7 @@ const riwayatTrans = async () => {
                   </Link>
                 </div>
               </div>
-              {list.status_kirim === "Pembayaran Berhasil" ? (
+              {list.status_kirim === "Lunas" ? (
                 <></>
               ) : (
                 <div className="flex justify-around mx-2 my-4">

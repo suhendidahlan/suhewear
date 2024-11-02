@@ -6,6 +6,8 @@ import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
 import { useFormState } from "react-dom";
 import { storeData } from "@/components/checkout/actions";
+import { useFormStatus } from "react-dom";
+import { clsx } from "clsx";
 
 declare global {
   interface Window {
@@ -104,6 +106,8 @@ const ChartCard = ({
     console.log({ requestData });
     window.snap.pay(requestData.token);
   }
+
+  const { pending } = useFormStatus();
 
   return (
     <div>
@@ -268,18 +272,28 @@ const ChartCard = ({
             className="flex justify-center mt-6 mb-10"
             // onClick={handleSubmit}
           >
-            {email && phone ? (
+            {email &&
+            phone &&
+            nama &&
+            telp &&
+            alamat &&
+            optionPicked &&
+            courier ? (
               <button
                 type="submit"
-                className="bg-slate-800 text-white py-3 px-20 rounded-md"
+                className={clsx(
+                  "bg-slate-800 text-white w-full font-medium py-2.5 px-6 text-base rounded-md hover:bg-slate-600",
+                  { "opacity-50 cursor-progress": pending }
+                )}
+                disabled={pending}
                 // onClick={handleTransaction}
               >
-                Next
+                {pending ? "Processing..." : "Next"}
               </button>
             ) : (
               <button
                 type="submit"
-                className="bg-slate-500 text-white py-3 px-20 rounded-md"
+                className="bg-slate-500 text-white py-3 px-20 rounded-md text-sm"
                 disabled
               >
                 Data Belum Lengkap

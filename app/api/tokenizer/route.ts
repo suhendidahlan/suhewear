@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
+let rupiah = Intl.NumberFormat("id-ID", {
+  style: "currency",
+  currency: "IDR",
+  minimumFractionDigits: 0,
+});
+
 let snap = new midtransClient.Snap({
   isProduction: false,
   serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
@@ -34,7 +40,7 @@ export async function POST(request: any) {
   const ongkir = "Ongkos Kirim (Shipping)";
   const alamatLengkap = alamat + ", " + optionPicked.label;
   const city = optionPicked.label;
-  const ongkir_jml: number = optionKurir.value * berat;
+  const ongkir_jml: number = optionKurir.value * qty;
   const gross: number = sub_total + pajak_jml + ongkir_jml;
 
   const disc = 0;
@@ -114,6 +120,16 @@ export async function POST(request: any) {
     " , Produk : " +
     title;
 
+  const pesanToCustomer: string =
+    "Notifikasi create order product di SUHE Activewear Apparel. Dengan ID Produk sebagai berikut: " +
+    "Nama Customer : " +
+    nama +
+    ", Nama Product : " +
+    title +
+    ", Total Belanja : " +
+    rupiah.format(gross) +
+    ". Silahkan lakukan pembayaran melalui gateway yang tersedia. Apabila terdapat masalah, silahkan hubungi WhatsApp admin berikut : 0859 - 6238 - 4140. Terima kasih telah berbelanja di SUHE Activewear Apparel.";
+
   var transporter = nodemailer.createTransport({
     service: process.env.NODEMAILER_SERVICE,
     auth: {
@@ -122,18 +138,22 @@ export async function POST(request: any) {
     },
   });
 
-  try {
-    await transporter.sendMail({
-      from: process.env.NODEMAILER_USER,
-      to: "suheweardotcom@gmail.com",
-      subject: "ORDER MASUK _ SUHE APPAREL",
-      text: "suhendi dahlan apparel",
-      html: pesan,
-    });
-  } catch (error) {
-    return { message: "Failed to register data" };
-  }
+  const sendEmail = await transporter.sendMail({
+    from: process.env.NODEMAILER_USER,
+    to: "suheweardotcom@gmail.com",
+    subject: "ORDER MASUK _ SUHE APPAREL",
+    text: "suhendi dahlan apparel",
+    html: pesan,
+  });
 
-  console.log(token, createTransaction);
+  const sendEmailToCostumer = await transporter.sendMail({
+    from: process.env.NODEMAILER_USER,
+    to: email,
+    subject: "ORDER SUHE_APPAREL",
+    text: "New Order Notification",
+    html: pesanToCustomer,
+  });
+
+  console.log(token, createTransaction, sendEmail, sendEmailToCostumer);
   return NextResponse.json({ token });
 }

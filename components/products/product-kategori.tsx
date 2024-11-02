@@ -46,7 +46,7 @@ const ProdukKategori = () => {
               </Link>
             </div>
           </div>
-          <div className="m-0.5 block text-center rounded-md">
+          {/* <div className="m-0.5 block text-center rounded-md">
             <div className="p-2">
               <Link href={`/shop/jacket`}>
                 <Image
@@ -83,7 +83,7 @@ const ProdukKategori = () => {
                 <FiArrowRight />
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

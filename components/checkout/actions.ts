@@ -6,6 +6,12 @@ import { redirect } from "next/navigation";
 import { getDataById } from "./data";
 import nodemailer from "nodemailer";
 
+let rupiah = Intl.NumberFormat("id-ID", {
+  style: "currency",
+  currency: "IDR",
+  minimumFractionDigits: 0,
+});
+
 const UploadSchema = z.object({
   user_id: z.string().min(1),
   nama: z.string().min(1),
@@ -102,7 +108,7 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
     return { message: "Failed to create data" };
   }
 
-  const pesan: string =
+  const pesanToAdmin: string =
     "Order Masuk : " +
     "Nama : " +
     nama +
@@ -111,6 +117,16 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
     " , Tipe Transaksi : MULTI TRANSACTION " +
     " , Produk : " +
     nama_product;
+
+  const pesanToCustomer: string =
+    "Notifikasi create order product di SUHE Activewear Apparel. Dengan ID Produk sebagai berikut: " +
+    "Nama Customer : " +
+    nama +
+    ", Nama Product : " +
+    nama_product +
+    ", Total Belanja : " +
+    rupiah.format(total) +
+    ". Silahkan lakukan pembayaran melalui gateway yang tersedia. Apabila terdapat masalah, silahkan hubungi WhatsApp admin berikut : 0859 - 6238 - 4140. Terima kasih telah berbelanja di SUHE Activewear Apparel.";
 
   var transporter = nodemailer.createTransport({
     service: process.env.NODEMAILER_SERVICE,
@@ -126,7 +142,19 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       to: "suheweardotcom@gmail.com",
       subject: "ORDER MASUK _ SUHE APPAREL",
       text: "suhendi dahlan apparel",
-      html: pesan,
+      html: pesanToAdmin,
+    });
+  } catch (error) {
+    return { message: "Failed to register data" };
+  }
+
+  try {
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_USER,
+      to: email,
+      subject: "ORDER SUHE_APPAREL",
+      text: "New Order Notification",
+      html: pesanToCustomer,
     });
   } catch (error) {
     return { message: "Failed to register data" };

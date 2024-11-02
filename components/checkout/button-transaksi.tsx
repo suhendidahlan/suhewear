@@ -3,6 +3,7 @@ import { useFormStatus } from "react-dom";
 import { deleteData, deleteDataAdmin } from "@/components/checkout/actions";
 
 export const ButtonTransaksi = ({ id }: { id: any }) => {
+  const { pending } = useFormStatus();
   async function handleSubmit(e: any) {
     e.preventDefault();
     // const produk = await getDataById(id);
@@ -35,12 +36,13 @@ export const ButtonTransaksi = ({ id }: { id: any }) => {
     window.snap.pay(requestData.token);
   }
   return (
-    <div
+    <button
       className="text-sm text-white bg-slate-700 rounded-lg p-2 w-full m-2 text-center cursor-pointer"
       onClick={handleSubmit}
+      disabled={pending}
     >
-      Bayar
-    </div>
+      {pending ? "Processing..." : "Bayar"}
+    </button>
   );
 };
 
