@@ -46,6 +46,19 @@ export const getDataProductTerbaru = async () => {
   }
 };
 
+export const getDataProductTerbaruKategori = async (cat: string) => {
+  try {
+    const result = await prisma.produk.findMany({
+      where: { kategori: cat },
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to fetch images");
+  }
+};
+
 //dashboard
 export const getDataProducts = async () => {
   try {

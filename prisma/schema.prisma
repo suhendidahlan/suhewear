@@ -55,6 +55,11 @@ model User {
   role String @default("user")
   accounts      Account[]
   sessions      Session[]
+  diskon Int @default(0)
+  kredit Int @default(0)
+  poin Int @default(0)
+  telp   String?
+  alamat   String?
  
   @@map("users")
 }
@@ -220,6 +225,7 @@ model trsingle {
   alamat_kirim String
   city String
   hp String
+  resi String?
   update_kirim String @default("belum")
   status_kirim String @default("Menunggu Pembayaran")
   createdAt DateTime @default(now())
@@ -236,6 +242,43 @@ model chart {
   berat Int
   harga Int
   user_id String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tokenDiskon {
+  id String @id @default(cuid())
+  token    String   @unique
+  kategori String
+  jumlah Int
+  percent Int?
+  nominal Int?
+  poin Int?
+  product String?
+  isActive Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model tokenGosok {
+  id String @id @default(cuid())
+  token    String   @unique
+  image String
+  jumlah Int
+  uraian String
+  isActive Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model rewardProduct {
+  id String @id @default(cuid())
+  token    String   @unique
+  image String
+  user_id String?
+  title String
+  jumlah String
+  isClaimed Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

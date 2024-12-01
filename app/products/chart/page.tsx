@@ -5,6 +5,8 @@ import ChartCard from "@/components/chart/chart";
 import type { chart } from "@prisma/client";
 import Image from "next/image";
 import { DeleteButton } from "@/components/chart/button";
+import { getDataById } from "@/components/user/data";
+import { rupiah } from "@/components/intl/intl";
 
 declare global {
   interface Window {
@@ -12,16 +14,13 @@ declare global {
   }
 }
 
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
-
 export default async function ChartPage() {
   const session: any = await auth();
   const user_id = session.user.id;
   const data: any = await getListProducts(session?.user.id);
+  const disc_user = await getDataById(user_id);
+  const diskon: any = disc_user?.diskon;
+  const kredit: any = disc_user?.kredit;
 
   const id_product = [data.map((list: chart) => list.id_product)].reduce(
     (a: string, b: string) => a + ", " + b
@@ -30,7 +29,7 @@ export default async function ChartPage() {
   const title = [
     data.map(
       (list: chart) =>
-        list.nama_product + " : " + list.qty + " (" + list.size + ")"
+        list.nama_product + " : " + list.qty + " (" + list.size + ") "
     ),
   ].reduce((a: string, b: string) => a + ", " + b);
 
@@ -49,7 +48,7 @@ export default async function ChartPage() {
     .reduce((a: number, b: number) => a + b, 0);
 
   const berat = data
-    .map((list: chart) => list.berat)
+    .map((list: chart) => list.berat * list.qty)
     .reduce((a: number, b: number) => a + b, 0);
 
   return (
@@ -106,6 +105,8 @@ export default async function ChartPage() {
         finalHarga={finalHarga}
         finalqty={finalqty}
         berat={berat}
+        diskon={diskon}
+        kredit={kredit}
       />
     </div>
   );

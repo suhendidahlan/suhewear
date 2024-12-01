@@ -6,7 +6,9 @@ import Select from "react-select";
 import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
 import { useFormState } from "react-dom";
-import { storeData } from "@/components/checkout/actions";
+import { storeData, cekDiskon } from "@/components/checkout/actions";
+import { SubmitButton } from "@/components/chart/button";
+import { rupiah } from "@/components/intl/intl";
 
 declare global {
   interface Window {
@@ -23,20 +25,22 @@ interface optionKurir {
   value: number;
 }
 
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
-
 const BuyNowCardUser = ({
   data,
   user_id,
+  diskon,
+  kredit,
 }: {
   data: produk;
   user_id: string;
+  diskon: number;
+  kredit: number;
 }) => {
   const [state, formAction] = useFormState(storeData, null);
+  const [stateDiskon, formActionDiskon] = useFormState(
+    cekDiskon.bind(null, user_id),
+    null
+  );
 
   const [size, setSize] = useState("");
   const [qty, setQty] = useState(1);
@@ -52,40 +56,24 @@ const BuyNowCardUser = ({
   const [optionPicked, setOptionPicked] = useState<optionPicked>();
   const [optionKurir, setOptionKurir] = useState<optionKurir>();
   const berat = (data.berat * qty) / 1000;
+  const finalWeight = Math.ceil(berat);
 
-  const stok = 5;
+  const stok = 10;
 
   const alamatBelumLengkap = optionPicked ? optionPicked.label : "";
   const alamatLengkap = alamat + alamatBelumLengkap;
 
   const sub_total = data.harga * qty;
+  const jmlDiskon = (sub_total * diskon) / 100;
   const pajak_jml = data.harga * qty * 0.11;
-  const ongkir_jml = optionKurir ? optionKurir.value * qty : 0;
+  const ongkir_jml = optionKurir ? optionKurir.value * finalWeight : 0;
 
   const kotaPilih = optionPicked ? optionPicked.value : "";
   const courier = optionKurir ? optionKurir.label : "";
 
-  const [disc_jml, setDiscJml] = useState(0);
-  const [inputDisc, setInputDisc] = useState("");
-  const [discSukses, setDiscSukses] = useState("");
-  const nominalDisc = 2000;
+  const disc_jml: number = jmlDiskon + kredit;
 
   const total: number = sub_total + pajak_jml + ongkir_jml - disc_jml;
-
-  async function handleDiskon(e: any) {
-    e.preventDefault();
-
-    if (inputDisc === "abc") {
-      setDiscJml(nominalDisc);
-      setDiscSukses(
-        "Selamat anda mendapatkan potongan harga sebesar " +
-          rupiah.format(nominalDisc)
-      );
-    } else {
-      setDiscJml(0);
-      setDiscSukses("Maaf, kupon yang anda masukan salah !");
-    }
-  }
 
   function handleTambahQty() {
     if (size) {
@@ -106,6 +94,44 @@ const BuyNowCardUser = ({
 
   return (
     <div key={data.id}>
+      <div className="mx-10 my-3">
+        {diskon || kredit > 0 ? (
+          <div>
+            <div className="text-sm mx-2 my-1 font-bold italic">
+              # Your Claimed Disc : {diskon > 0 ? diskon + " %" : ""}
+              {"  |  "}
+              {kredit > 0 ? rupiah.format(kredit) : ""}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="text-sm mx-2 my-1 font-bold italic">
+              # Kupon Discount :
+            </div>
+            <form action={formActionDiskon}>
+              <div className="flex">
+                <input
+                  type="text"
+                  name="token"
+                  className="py-2 px-4 text-sm rounded-md border border-gray-400 w-full"
+                  placeholder="Masukan Kupon Jika Punya..."
+                />
+                <button
+                  className="bg-slate-500 rounded-lg p-2 mx-2 text-white text-sm"
+                  type="submit"
+                >
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        <div aria-live="polite" aria-atomic="true">
+          <p className="text-sm text-slate-700 mt-2 italic">
+            {stateDiskon?.message}
+          </p>
+        </div>
+      </div>
       <form
         action={formAction}
         className="tablet:mx-14 laptop:mx-14 laptop:w-1/2"
@@ -126,7 +152,6 @@ const BuyNowCardUser = ({
                 Weight : {data.berat * qty} gr
               </div>
             </div>
-
             <div className="m-1 text-sm font-medium text-slate-500">
               {rupiah.format(data.harga)}
             </div>
@@ -353,29 +378,6 @@ const BuyNowCardUser = ({
             />
           </div>
         </div>
-        <div className="mx-10 my-3">
-          <div className="text-sm mx-2 my-1 font-bold italic">
-            # Kupon Discount :
-          </div>
-          <div className="flex">
-            <input
-              type="text"
-              value={inputDisc}
-              onChange={(e) => setInputDisc(e.target.value)}
-              className="py-2 px-4 text-sm rounded-md border border-gray-400 w-full"
-              placeholder="Masukan Kupon Jika Punya..."
-            />
-            <button
-              onClick={handleDiskon}
-              className="bg-slate-500 rounded-lg p-2 mx-2 text-white text-sm"
-            >
-              Apply
-            </button>
-          </div>
-          <div aria-live="polite" aria-atomic="true">
-            <p className="text-sm text-slate-700 mt-2 italic">{discSukses}</p>
-          </div>
-        </div>
         <div className="flex justify-center mt-6 mb-10">
           {/* <p className="my-3 text-sm text-green-600 italic">
                 Data Lengkap, Silahkan Klik Link di bawah untuk melanjutkan
@@ -391,12 +393,7 @@ const BuyNowCardUser = ({
             optionPicked &&
             optionKurir &&
             size ? (
-              <button
-                type="submit"
-                className="bg-slate-800 text-white py-3 px-20 rounded-md text-sm"
-              >
-                Next
-              </button>
+              <SubmitButton label="submit" />
             ) : (
               <button
                 type="submit"

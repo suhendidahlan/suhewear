@@ -10,6 +10,12 @@ let rupiah = Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
+let tanggal = Intl.DateTimeFormat("id-ID", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
 const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
   const [state, formAction] = useFormState(
     updateDataTransaction.bind(null, data.id),
@@ -28,11 +34,17 @@ const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
               <div className="text-sm text-slate-500 italic mb-2">
                 Transaction ID : {data.id}
               </div>
+              <div className="text-sm text-slate-500 italic mb-2">
+                Date : {tanggal.format(data.createdAt)}
+              </div>
               <div className="text-sm font-medium">
                 Product /s : <br /> - {data.nama_product}
               </div>
               <form action={formAction}>
-                <div className="text-xs text-slate-500 italic mt-4">
+                <div className="text-xs text-slate-500 italic mt-2">
+                  Berat : {data.berat} gr.
+                </div>
+                <div className="text-xs text-slate-500 italic mt-2">
                   Status : {data.status_kirim}
                 </div>
                 <select name="status_kirim" className="text-sm p-1">
@@ -57,8 +69,16 @@ const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
                   <option value="Sudah Diterima">Sudah Diterima</option>
                   <option value="Refund">Refund</option>
                   <option value="Barang Ditukar">Barang Ditukar</option>
-                  <option value="Selesai">Selesai</option>
                 </select>
+                <div className="text-sm m-2">
+                  <p>No. Resi :</p>
+                  <input
+                    type="text"
+                    name="resi"
+                    className="p-2 bg-slate-200 rounded-md"
+                    defaultValue={data.resi ? data.resi : ""}
+                  />
+                </div>
                 <button
                   type="submit"
                   className="bg-slate-300 rounded-md p-2 mx-10 text-sm"
@@ -79,7 +99,7 @@ const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-slate-600">
-                    Ongkos Kirim (Shipping) * qty :
+                    Ongkos Kirim (Shipping) * weight :
                   </p>
                   {data.pajak > 1 ? (
                     <p className="text-xs">{rupiah.format(data.ongkir)}</p>
@@ -134,10 +154,16 @@ const DetailRiwayatTransEdit = ({ data }: { data: trsingle }) => {
                 <p className="text-xs italic text-slate-500">City :</p>
                 <p className="text-xs">{data.city}</p>
               </div>
+              <div className="flex justify-between mx-10 my-1 items-center">
+                <p className="text-xs italic text-slate-500">No. Resi :</p>
+                <p className="text-xs">{data.resi}</p>
+              </div>
             </div>
           </div>
         </div>
-        <DeleteButtonAdmin id={data.id} />
+        <div className="my-20">
+          <DeleteButtonAdmin id={data.id} />
+        </div>
       </div>
     </div>
   );

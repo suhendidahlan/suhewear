@@ -5,6 +5,7 @@ import type { produk } from "@prisma/client";
 import Select from "react-select";
 import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
+import { rupiah } from "@/components/intl/intl";
 
 declare global {
   interface Window {
@@ -21,12 +22,6 @@ interface optionKurir {
   value: number;
 }
 
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
-
 const BuyNowCard = ({ data }: { data: produk }) => {
   const [size, setSize] = useState("");
   const [qty, setQty] = useState(1);
@@ -41,26 +36,16 @@ const BuyNowCard = ({ data }: { data: produk }) => {
   const [optionPicked, setOptionPicked] = useState<optionPicked>();
   const [optionKurir, setOptionKurir] = useState<optionKurir>();
   const berat = (data.berat * qty) / 1000;
+  const finalWeight = Math.ceil(berat);
 
-  const stok = 5;
+  const stok = 10;
 
   const kotaPilih = optionPicked ? optionPicked.value : "";
 
   const sub_total = data.harga * qty;
   const pajak_jml = data.harga * qty * 0.11;
-  const ongkir_jml = optionKurir ? optionKurir.value * qty : 0;
-  const [disc_jml, setDiscJml] = useState(0);
-  const [inputDisc, setInputDisc] = useState("");
-
-  async function handleDiskon(e: any) {
-    e.preventDefault();
-
-    if (inputDisc === "abc") {
-      setDiscJml(2000);
-    } else {
-      setDiscJml(0);
-    }
-  }
+  const ongkir_jml = optionKurir ? optionKurir.value * finalWeight : 0;
+  const disc_jml = 0;
 
   const total: number = sub_total + pajak_jml + ongkir_jml - disc_jml;
 

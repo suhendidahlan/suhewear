@@ -1,6 +1,7 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { clsx } from "clsx";
+import { deleteData } from "@/components/user/actions";
 
 export const SubmitButton = ({ label }: { label: string }) => {
   const { pending } = useFormStatus();
@@ -38,6 +39,27 @@ export const SubmitButtonEditPass = ({ label }: { label: string }) => {
       ) : (
         <div className="">{pending ? "Verifying..." : "Login"}</div>
       )}
+    </button>
+  );
+};
+
+export const DeleteButton = ({ id }: { id: string }) => {
+  const deleteImageWithId = deleteData.bind(null, id);
+  return (
+    <form
+      action={deleteImageWithId}
+      className="py-3 text-sm bg-gray-50 rounded-br-md w-full hover:bg-gray-100 text-center"
+    >
+      <DeleteBtn />
+    </form>
+  );
+};
+
+const DeleteBtn = () => {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending}>
+      {pending ? "Deleting..." : "Del"}
     </button>
   );
 };

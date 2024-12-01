@@ -4,12 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { produk } from "@prisma/client";
 import Checkout from "../checkout/checkout";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
 
 const CardProduct = ({ data }: { data: produk }) => {
   const [size, setSize] = useState("Belum Pilih");

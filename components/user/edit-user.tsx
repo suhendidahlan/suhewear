@@ -18,7 +18,13 @@ const EditUserAccount = ({ data }: { data: User }) => {
         <p className="text-sm italic text-slate-600">Image :</p>
         <div className="flex w-full justify-center my-2">
           {data?.image ? (
-            <Image src={data.image} width={40} height={40} alt="image-user" />
+            <Image
+              src={data.image}
+              width={100}
+              height={100}
+              alt="image-user"
+              className="rounded-md"
+            />
           ) : (
             <FaRegUserCircle size={40} />
           )}
@@ -27,17 +33,41 @@ const EditUserAccount = ({ data }: { data: User }) => {
         <div aria-live="polite" aria-atomic="true">
           <p className="text-sm text-red-500 mt-2">{state?.error?.image}</p>
         </div>
-        <div className="m-1">
+        <div className="m-2">
           <p className="text-sm italic text-slate-600">Name :</p>
           <input
             type="text"
             name="name"
             defaultValue={data.name}
-            className="text-center p-2"
+            className="text-center p-2 bg-slate-100 rounded-md text-sm"
+          />
+          <div aria-live="polite" aria-atomic="true">
+            <p className="text-sm text-red-500 mt-2">{state?.error?.name}</p>
+          </div>
+        </div>
+        <div className="m-2">
+          <p className="text-sm italic text-slate-600">No Telp / Whatsapp :</p>
+          <input
+            type="text"
+            name="telp"
+            defaultValue={data.telp ? data.telp : ""}
+            className="text-center p-2 bg-slate-100 rounded-md text-sm"
+          />
+          <div aria-live="polite" aria-atomic="true">
+            <p className="text-sm text-red-500 mt-2">{state?.error?.telp}</p>
+          </div>
+        </div>
+        <div className="m-2">
+          <p className="text-sm italic text-slate-600">Alamat :</p>
+          <input
+            type="text"
+            name="alamat"
+            defaultValue={data.alamat ? data.alamat : ""}
+            className="text-center p-2 bg-slate-100 rounded-md text-sm"
           />
         </div>
         <div aria-live="polite" aria-atomic="true">
-          <p className="text-sm text-red-500 mt-2">{state?.error?.name}</p>
+          <p className="text-sm text-red-500 mt-2">{state?.error?.alamat}</p>
         </div>
         <div className="my-4">
           <SubmitButtonEditPass label="submit" />

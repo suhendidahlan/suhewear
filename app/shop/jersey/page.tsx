@@ -3,12 +3,7 @@ import Image from "next/image";
 import { getDataByCat } from "@/components/shop/data";
 import FilterStore from "@/components/products/filter-store";
 import React from "react";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
 
 const ShopJerseyPage = async () => {
   const produk = await getDataByCat("jersey");

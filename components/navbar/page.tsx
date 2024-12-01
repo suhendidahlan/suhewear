@@ -98,16 +98,18 @@ const Navbar = ({
         <div className="hidden laptop:flex">
           {data ? (
             <div className="laptop:flex laptop:items-center laptop:justify-around laptop:mx-2">
-              <div className="">
+              <div className="mx-2">
                 {data.user.image ? (
                   <Link href={`/user`}>
-                    <Image
-                      src={data.user.image}
-                      alt="user image"
-                      width={50}
-                      height={50}
-                      className="laptop:rounded-2xl"
-                    />
+                    <div className="laptop:rounded-full laptop:w-[50px] laptop:h-[50px] laptop:overflow-hidden">
+                      <Image
+                        src={data.user.image}
+                        alt="user image"
+                        width={70}
+                        height={70}
+                        className="laptop:w-[50px]"
+                      />
+                    </div>
                   </Link>
                 ) : (
                   <Link href={`/user`}>
@@ -140,7 +142,7 @@ const Navbar = ({
         </div>
       </nav>
       {navbar ? (
-        <div className="mt-20 px-8 py-4 bg-white h-dvh w-screen duration-200 ease-out z-40 fixed">
+        <div className="mt-20 px-8 py-4 bg-white h-screen w-screen duration-200 ease-out z-40 fixed">
           <div className="">
             {role === "admin" && (
               <ul className="my-4 flex justify-between">
@@ -250,13 +252,15 @@ const Navbar = ({
               <div className="flex justify-start items-center">
                 {data.user.image ? (
                   <Link href={`/user`} onClick={() => setNavbar(!navbar)}>
-                    <Image
-                      src={data.user.image}
-                      alt="user image"
-                      width={50}
-                      height={50}
-                      className="rounded-2xl"
-                    />
+                    <div className="rounded-full w-[50px] h-[50px] overflow-hidden">
+                      <Image
+                        src={data.user.image}
+                        alt="user image"
+                        width={50}
+                        height={50}
+                        className="rounded-xl w-[50px]"
+                      />
+                    </div>
                   </Link>
                 ) : (
                   <Link href={`/user`} onClick={() => setNavbar(!navbar)}>

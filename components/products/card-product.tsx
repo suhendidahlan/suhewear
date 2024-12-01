@@ -5,12 +5,7 @@ import Link from "next/link";
 import type { produk, User } from "@prisma/client";
 import { storeData } from "@/components/chart/actions";
 import { useFormState } from "react-dom";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
 
 const CardProduct = ({ data, session }: { data: produk; session: any }) => {
   const [state, formAction] = useFormState(storeData, null);

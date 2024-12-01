@@ -11,6 +11,10 @@ export const getData = async () => {
       const dataUser = await updateDataTrans(list.id);
       return dataUser;
     });
+  } catch (error) {
+    throw new Error("Failed to fetch Data");
+  }
+  try {
     const resultFinal = await prisma.trsingle.findMany({
       orderBy: { createdAt: "desc" },
     });

@@ -9,6 +9,12 @@ let rupiah = Intl.NumberFormat("id-ID", {
   minimumFractionDigits: 0,
 });
 
+let tanggal = Intl.DateTimeFormat("id-ID", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
 const AdminTransactionsList = async () => {
   const data = await getData();
   return (
@@ -31,6 +37,7 @@ const AdminTransactionsList = async () => {
               {rupiah.format(list.total)}
             </p>
             <div className="italic">Products: {list.nama_product}</div>
+            <div className="italic">{tanggal.format(list.createdAt)}</div>
             <div className="flex justify-between">
               <p>Ket: {list.keterangan}</p>
               <p>Bayar : {list.status_kirim}</p>

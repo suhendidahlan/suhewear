@@ -37,6 +37,11 @@ const UploadSchema = z.object({
 const EditSchema = z.object({
   status_kirim: z.string().min(1),
   update_kirim: z.string().min(1),
+  resi: z.any(),
+});
+
+const CekDiskonSchema = z.object({
+  token: z.string().min(1),
 });
 
 //STORE
@@ -99,6 +104,13 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       },
     });
 
+    await prisma.user.update({
+      data: {
+        diskon: 0,
+      },
+      where: { id: user_id },
+    });
+
     await prisma.chart.deleteMany({
       where: {
         user_id: user_id,
@@ -154,7 +166,7 @@ export const storeData = async (prevState: unknown, formData: FormData) => {
       to: email,
       subject: "ORDER SUHE_APPAREL",
       text: "New Order Notification",
-      html: pesanToCustomer,
+      html: { path: `components/nodemailer/orderCustomer.html` },
     });
   } catch (error) {
     return { message: "Failed to register data" };
@@ -210,13 +222,14 @@ export const updateDataTransaction = async (
   const data = await getDataById(id);
   if (!data) return { message: "No Data Found" };
 
-  const { status_kirim, update_kirim } = validatedFields.data;
+  const { status_kirim, update_kirim, resi } = validatedFields.data;
 
   try {
     await prisma.trsingle.update({
       data: {
         status_kirim,
         update_kirim,
+        resi,
       },
       where: { id },
     });
@@ -225,4 +238,159 @@ export const updateDataTransaction = async (
   }
   revalidatePath("/dashboard/transactions");
   redirect("/dashboard/transactions");
+};
+
+export const cekDiskon = async (
+  id: string,
+  prevState: unknown,
+  formData: FormData
+) => {
+  const validatedFields = CekDiskonSchema.safeParse(
+    Object.fromEntries(formData.entries())
+  );
+
+  if (!validatedFields.success) {
+    return {
+      error: validatedFields.error.flatten().fieldErrors,
+    };
+  }
+
+  const { token } = validatedFields.data;
+
+  const tokenDiskon = await prisma.tokenDiskon.findUnique({
+    where: { token: token },
+  });
+
+  if (tokenDiskon) {
+    if (tokenDiskon.isActive == true) {
+      const jmlDiskon = tokenDiskon.jumlah - 1;
+      if (tokenDiskon.kategori === "percent") {
+        if (tokenDiskon.jumlah > 1) {
+          try {
+            await prisma.user.update({
+              data: {
+                diskon: tokenDiskon.percent !== null ? tokenDiskon.percent : 0,
+              },
+              where: { id },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          try {
+            await prisma.tokenDiskon.update({
+              data: {
+                jumlah: jmlDiskon,
+              },
+              where: { token },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          revalidatePath("/products/chart");
+          return {
+            message:
+              "Selamat, anda mendapatkan potongan harga sebesar " +
+              tokenDiskon.percent +
+              " %. Berlaku secara otomatis saat anda melakukan checkout.",
+          };
+        } else if (tokenDiskon.jumlah == 1) {
+          try {
+            await prisma.user.update({
+              data: {
+                diskon: tokenDiskon.percent !== null ? tokenDiskon.percent : 0,
+              },
+              where: { id },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          try {
+            await prisma.tokenDiskon.update({
+              data: {
+                jumlah: jmlDiskon,
+                isActive: false,
+              },
+              where: { token },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          revalidatePath("/products/chart");
+          return {
+            message:
+              "Selamat, anda mendapatkan potongan harga sebesar " +
+              tokenDiskon.percent +
+              " %. Berlaku secara otomatis saat anda melakukan checkout.",
+          };
+        }
+      } else if (tokenDiskon.kategori === "nominal") {
+        if (tokenDiskon.jumlah > 1) {
+          try {
+            await prisma.user.update({
+              data: {
+                kredit: tokenDiskon.nominal !== null ? tokenDiskon.nominal : 0,
+              },
+              where: { id },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          try {
+            await prisma.tokenDiskon.update({
+              data: {
+                jumlah: jmlDiskon,
+              },
+              where: { token },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          revalidatePath("/products/chart");
+          return {
+            message:
+              "Selamat, anda mendapatkan potongan harga sebesar " +
+              rupiah.format(
+                tokenDiskon.nominal !== null ? tokenDiskon.nominal : 0
+              ) +
+              " %. Berlaku secara otomatis saat anda melakukan checkout.",
+          };
+        } else if (tokenDiskon.jumlah == 1) {
+          try {
+            await prisma.user.update({
+              data: {
+                kredit: tokenDiskon.nominal !== null ? tokenDiskon.nominal : 0,
+              },
+              where: { id },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          try {
+            await prisma.tokenDiskon.update({
+              data: {
+                jumlah: jmlDiskon,
+                isActive: false,
+              },
+              where: { token },
+            });
+          } catch (error) {
+            return { message: "Failed to update data" };
+          }
+          revalidatePath("/products/chart");
+          return {
+            message:
+              "Selamat, anda mendapatkan potongan harga sebesar " +
+              rupiah.format(
+                tokenDiskon.nominal !== null ? tokenDiskon.nominal : 0
+              ) +
+              " %. Berlaku secara otomatis saat anda melakukan checkout.",
+          };
+        }
+      }
+    } else if (tokenDiskon.isActive == false) {
+      return { message: "Maaf, Kupon anda tidak sesuai" };
+    }
+  } else {
+    return { message: "Maaf, Kupon anda tidak sesuai" };
+  }
 };

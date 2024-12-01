@@ -5,9 +5,10 @@ import Select from "react-select";
 import { optionCity } from "@/lib/ongkir/city";
 import { listKurir } from "@/lib/ongkir/courier";
 import { useFormState } from "react-dom";
-import { storeData } from "@/components/checkout/actions";
+import { cekDiskon, storeData } from "@/components/checkout/actions";
 import { useFormStatus } from "react-dom";
-import { clsx } from "clsx";
+import { SubmitButton } from "@/components/chart/button";
+import { rupiah } from "@/components/intl/intl";
 
 declare global {
   interface Window {
@@ -24,12 +25,6 @@ interface optionKurir {
   value: number;
 }
 
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
-
 const ChartCard = ({
   data,
   user_id,
@@ -39,6 +34,8 @@ const ChartCard = ({
   finalHarga,
   finalqty,
   berat,
+  diskon,
+  kredit,
 }: {
   data: chart;
   user_id: string;
@@ -48,10 +45,15 @@ const ChartCard = ({
   finalHarga: number;
   finalqty: number;
   berat: number;
+  diskon: number;
+  kredit: number;
 }) => {
   const [state, formAction] = useFormState(storeData, null);
+  const [stateDiskon, formActionDiskon] = useFormState(
+    cekDiskon.bind(null, user_id),
+    null
+  );
 
-  const [qty, setQty] = useState(1);
   const [nama, setNama] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -68,14 +70,18 @@ const ChartCard = ({
 
   const kotaPilih = optionPicked ? optionPicked.value : "";
 
+  const weight = berat / 1000;
+  const finalWeight = Math.ceil(weight);
+
   const sub_total = finalHarga;
+  const jmlDiskon = (finalHarga * diskon) / 100;
   const pajak_jml = finalHarga * 0.11;
-  const ongkir_jml: number = optionKurir ? optionKurir.value * finalqty : 0;
-  const disc_jml: number = 0;
+  const ongkir_jml: number = optionKurir ? optionKurir.value * finalWeight : 0;
+  const disc_jml: number = jmlDiskon + kredit;
   const total: number = sub_total + pajak_jml + ongkir_jml - disc_jml;
 
   const alamatBelumLengkap = optionPicked ? optionPicked.label : "";
-  const alamatLengkap = alamat + alamatBelumLengkap;
+  const alamatLengkap = alamat + ", " + alamatBelumLengkap;
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -111,19 +117,49 @@ const ChartCard = ({
 
   return (
     <div>
+      <div className="mx-10 my-3">
+        {diskon || kredit > 0 ? (
+          <div>
+            <div className="text-sm mx-2 my-1 font-bold italic">
+              # Your Claimed Disc : {diskon > 0 ? diskon + " %" : ""}
+              {"  |  "}
+              {kredit > 0 ? rupiah.format(kredit) : ""}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="text-sm mx-2 my-1 font-bold italic">
+              # Kupon Discount :
+            </div>
+            <form action={formActionDiskon}>
+              <div className="flex">
+                <input
+                  type="text"
+                  name="token"
+                  className="py-2 px-4 text-sm rounded-md border border-gray-400 w-full"
+                  placeholder="Masukan Kupon Jika Punya..."
+                />
+                <button
+                  className="bg-slate-500 rounded-lg p-2 mx-2 text-white text-sm"
+                  type="submit"
+                >
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        <div aria-live="polite" aria-atomic="true">
+          <p className="text-sm text-slate-700 mt-2 italic">
+            {stateDiskon?.message}
+          </p>
+        </div>
+      </div>
+
       <form
         action={formAction}
         className="tablet:mx-14 laptop:mx-14 laptop:w-1/2"
       >
-        <div className="mx-8 mt-1 mb-5 flex justify-center">
-          <input
-            type="text"
-            value={ket}
-            onChange={(e) => setKet(e.target.value)}
-            placeholder="Tulis Keterangan (opsional)"
-            className="p-2 text-xs text-center border rounded-lg w-full"
-          />
-        </div>
         <div className="mx-4 my-2">
           <div className="m-3 p-1">
             <div className="flex justify-between items-center">
@@ -138,7 +174,7 @@ const ChartCard = ({
             </div>
             <div className="flex justify-between items-center">
               <p className="text-xs text-slate-600">
-                Ongkos Kirim (Shipping) * qty :
+                Ongkos Kirim (Shipping) * weight :
               </p>
               {ongkir_jml > 1 ? (
                 <p className="text-xs">{rupiah.format(ongkir_jml)}</p>
@@ -159,6 +195,15 @@ const ChartCard = ({
               )}
             </div>
           </div>
+        </div>
+        <div className="mx-8 mt-1 mb-5 flex justify-center">
+          <input
+            type="text"
+            value={ket}
+            onChange={(e) => setKet(e.target.value)}
+            placeholder="Tulis Keterangan (opsional)"
+            className="p-2 text-xs text-center border rounded-lg w-full"
+          />
         </div>
         <div className="mx-4 mt-2 mb-6">
           <div className="text-xl font-bold my-3 border-b">Contact</div>
@@ -279,17 +324,7 @@ const ChartCard = ({
             alamat &&
             optionPicked &&
             courier ? (
-              <button
-                type="submit"
-                className={clsx(
-                  "bg-slate-800 text-white w-full font-medium py-2.5 px-6 text-base rounded-md hover:bg-slate-600",
-                  { "opacity-50 cursor-progress": pending }
-                )}
-                disabled={pending}
-                // onClick={handleTransaction}
-              >
-                {pending ? "Processing..." : "Next"}
-              </button>
+              <SubmitButton label="submit" />
             ) : (
               <button
                 type="submit"

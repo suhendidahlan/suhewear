@@ -2,12 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getDataProductTerbaru } from "@/components/products/data";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
 
 const ProdukTerbaruCard = async () => {
   const images = await getDataProductTerbaru();
@@ -26,7 +21,7 @@ const ProdukTerbaruCard = async () => {
                 </div>
                 <div>
                   <Image
-                    className="rounded-md opacity-50 grayscale laptop:w-[300px]"
+                    className="rounded-md opacity-50 grayscale w-[150px] laptop:w-[300px]"
                     src={data.image1}
                     alt={data.title}
                     width={300}
@@ -40,7 +35,7 @@ const ProdukTerbaruCard = async () => {
                   <div>
                     <Link href={`/products/${data.id}`}>
                       <Image
-                        className="rounded-md laptop:w-[300px]"
+                        className="rounded-md w-[150px] laptop:w-[300px]"
                         src={data.image1}
                         alt={data.title}
                         width={300}
@@ -52,7 +47,7 @@ const ProdukTerbaruCard = async () => {
                   <div>
                     <Link href={`/products/${data.id}`}>
                       <Image
-                        className="rounded-md laptop:w-[300px]"
+                        className="rounded-md w-[150px] laptop:w-[300px]"
                         src={data.image1}
                         alt={data.title}
                         width={300}

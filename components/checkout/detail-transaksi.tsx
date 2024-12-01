@@ -1,11 +1,12 @@
 "use client";
 import type { trsingle } from "@prisma/client";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { LiaShippingFastSolid } from "react-icons/lia";
+import { GiCardboardBox } from "react-icons/gi";
+import { RiHandCoinLine } from "react-icons/ri";
+import { RiRefund2Line } from "react-icons/ri";
+import { TbArrowsExchange } from "react-icons/tb";
+import { rupiah } from "@/components/intl/intl";
+import { tanggal } from "@/components/intl/intl";
 
 const DetailRiwayatTrans = ({ data }: { data: trsingle }) => {
   return (
@@ -21,11 +22,17 @@ const DetailRiwayatTrans = ({ data }: { data: trsingle }) => {
               <div className="text-sm text-slate-500 italic mb-2">
                 Transaction ID : {data.id}
               </div>
+              <div className="text-sm text-slate-500 italic mb-2">
+                Tanggal : {tanggal.format(data.createdAt)}
+              </div>
               <div className="text-sm font-medium">
                 Product /s : <br /> - {data.nama_product}
               </div>
-              <div className="text-xs text-slate-500 italic mt-4">
+              <div className="text-xs text-slate-500 italic mt-2">
                 Status : {data.status_kirim}
+              </div>
+              <div className="text-xs text-slate-500 italic mt-2">
+                Berat / Weight : {data.berat} gr.
               </div>
               <div className="m-3 p-1">
                 <div className="flex justify-between items-center">
@@ -40,7 +47,7 @@ const DetailRiwayatTrans = ({ data }: { data: trsingle }) => {
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-slate-600">
-                    Ongkos Kirim (Shipping) * qty :
+                    Ongkos Kirim (Shipping) * weight :
                   </p>
                   {data.pajak > 1 ? (
                     <p className="text-xs">{rupiah.format(data.ongkir)}</p>
@@ -79,7 +86,7 @@ const DetailRiwayatTrans = ({ data }: { data: trsingle }) => {
               </div>
               <div className="flex justify-between mx-10 my-1 items-center">
                 <p className="text-xs italic text-slate-500">Paket Kirim :</p>
-                <p className="text-sm">{data.kurir} / pcs</p>
+                <p className="text-sm">{data.kurir} / kg</p>
               </div>
               <div className="mx-10 my-1">
                 <p className="text-xs italic text-slate-500">Alamat :</p>
@@ -96,10 +103,68 @@ const DetailRiwayatTrans = ({ data }: { data: trsingle }) => {
                 <p className="text-xs">{data.city}</p>
               </div>
               <div className="flex justify-between mx-10 my-1 items-center">
+                <p className="text-xs italic text-slate-500">No. Resi :</p>
+                <p className="text-xs">{data.resi}</p>
+              </div>
+              <div className="flex justify-between mx-10 my-1 items-center">
                 <p className="text-xs italic text-slate-500">
                   Update Shipment :
                 </p>
                 <p className="text-sm">{data.update_kirim}</p>
+              </div>
+              <div className="">
+                {data.update_kirim === "Sedang Dikemas" && (
+                  <div className="m-10">
+                    <div className="opacity-70 my-1">
+                      <GiCardboardBox size={60} />
+                      <p className="text-sm italic">Sedang Dikemas</p>
+                    </div>
+                  </div>
+                )}
+                {data.update_kirim === "Sedang Dikirim" && (
+                  <div className="m-10">
+                    <div className="opacity-40 my-1">
+                      <GiCardboardBox size={30} />
+                    </div>
+                    <div className="mx-4"> | </div>
+                    <div className="opacity-70 my-1">
+                      <LiaShippingFastSolid size={60} />
+                      <p className="text-sm italic">Sedang Dikirim</p>
+                    </div>
+                  </div>
+                )}
+                {data.update_kirim === "Sudah Diterima" && (
+                  <div className="m-10">
+                    <div className="opacity-40 my-1">
+                      <GiCardboardBox size={30} />
+                    </div>
+                    <div className="mx-4"> | </div>
+                    <div className="opacity-40 my-1">
+                      <LiaShippingFastSolid size={30} />
+                    </div>
+                    <div className="mx-4"> | </div>
+                    <div className="opacity-70 my-1">
+                      <RiHandCoinLine size={60} />
+                      <p className="text-sm italic">Sudah Diterima</p>
+                    </div>
+                  </div>
+                )}
+                {data.update_kirim === "Refund" && (
+                  <div className="m-10">
+                    <div className="opacity-70 my-1">
+                      <RiRefund2Line size={60} />
+                      <p className="text-sm italic">Refund</p>
+                    </div>
+                  </div>
+                )}
+                {data.update_kirim === "Barang Ditukar" && (
+                  <div className="m-10">
+                    <div className="opacity-70 my-1">
+                      <TbArrowsExchange size={60} />
+                      <p className="text-sm italic">Barang Ditukar</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

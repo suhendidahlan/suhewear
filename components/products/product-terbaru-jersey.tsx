@@ -1,0 +1,104 @@
+import Image from "next/image";
+import Link from "next/link";
+import { getDataProductTerbaruKategori } from "@/components/products/data";
+import { rupiah } from "@/components/intl/intl";
+
+const ProdukTerbaruJersey = async () => {
+  const images = await getDataProductTerbaruKategori("jersey");
+  return (
+    <>
+      <div className="px-6 py-2 text-lg font-bold mt-4">SUHE JERSEY LIST</div>
+      <div className="mx-2 container flex overflow-x-scroll min-w-full">
+        {images?.map((data) => (
+          <div
+            className="m-0.5 block text-center min-w-40 rounded-md"
+            key={data.id}
+          >
+            <div className="p-2">
+              {data.status === "sold out" ? (
+                <div>
+                  <div className="bg-slate-700 text-white text-xs rounded-lg absolute p-1.5 italic">
+                    sold out
+                  </div>
+                  <div>
+                    <Image
+                      className="rounded-md opacity-50 grayscale w-[150px] laptop:w-[300px]"
+                      src={data.image1}
+                      alt={data.title}
+                      width={300}
+                      height={300}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  {data.disc_label === "no" ? (
+                    <div>
+                      <Link href={`/products/${data.id}`}>
+                        <Image
+                          className="rounded-md w-[150px] laptop:w-[300px]"
+                          src={data.image1}
+                          alt={data.title}
+                          width={300}
+                          height={300}
+                        />
+                      </Link>
+                    </div>
+                  ) : (
+                    <div>
+                      <Link href={`/products/${data.id}`}>
+                        <Image
+                          className="rounded-md w-[150px] laptop:w-[300px]"
+                          src={data.image1}
+                          alt={data.title}
+                          width={300}
+                          height={300}
+                        />
+                      </Link>
+                      <div className="bg-green-700 text-white text-[10px] rounded-lg p-0.5 italic w-[60px]">
+                        {data.disc_label}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="py-1 px-2 text-[13px] font-bold text-center">
+              {data.status === "sold out" ? (
+                <div>{data.title}</div>
+              ) : (
+                <Link href={`/products/${data.id}`}>{data.title}</Link>
+              )}
+            </div>
+            {data.harga_disc > 0 ? (
+              <div className="flex justify-around items-center mb-4 py-0.5 px-2">
+                <div
+                  className="text-xs font-light text-slate-600"
+                  style={{ textDecoration: "line-through" }}
+                >
+                  {rupiah.format(data.harga_disc)}
+                </div>
+                <div className="text-sm font-normal">
+                  {rupiah.format(data.harga)}
+                </div>
+              </div>
+            ) : (
+              <div className="mb-4 py-0.5 px-2 text-sm font-normal">
+                {rupiah.format(data.harga)}
+              </div>
+            )}
+
+            {/* <button className="mb-3 mt-1 bg-red-500 px-5 py-1 rounded-md">
+            Lihat
+          </button> */}
+          </div>
+        ))}
+      </div>
+      <div className="mb-3 mt-1 bg-slate-800 text-white text-[13px] px-5 py-2 rounded-md text-center mx-32 tablet:mx-80 laptop:mx-[500px]">
+        <Link href={`/shop/jersey`}>View All</Link>
+      </div>
+    </>
+  );
+};
+
+export default ProdukTerbaruJersey;

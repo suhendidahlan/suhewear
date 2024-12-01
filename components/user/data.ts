@@ -11,6 +11,17 @@ export const getDataUsers = async () => {
   }
 };
 
+export const getDataUsersFalse = async () => {
+  try {
+    const result = await prisma.user.findMany({
+      where: { isActive: false },
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to fetch images");
+  }
+};
+
 export const getDataById = async (id: string) => {
   try {
     const result = await prisma.user.findUnique({

@@ -2,12 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getImagesByCat } from "@/components/products/data";
 import { DeleteButton } from "@/components/products/button";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
 
 export default async function ProductsAdmin() {
   const images = await getImagesByCat("tshirt");

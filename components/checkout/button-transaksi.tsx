@@ -1,8 +1,9 @@
 "use client";
 import { useFormStatus } from "react-dom";
 import { deleteData, deleteDataAdmin } from "@/components/checkout/actions";
+import { clsx } from "clsx";
 
-export const ButtonTransaksi = ({ id }: { id: any }) => {
+export const ButtonTransaksi = ({ id, label }: { id: any; label: string }) => {
   const { pending } = useFormStatus();
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -37,11 +38,19 @@ export const ButtonTransaksi = ({ id }: { id: any }) => {
   }
   return (
     <button
-      className="text-sm text-white bg-slate-700 rounded-lg p-2 w-full m-2 text-center cursor-pointer"
+      className={clsx(
+        "bg-slate-800 text-white m-2 p-2 w-full text-base rounded-md hover:bg-slate-600",
+        { "opacity-50 cursor-progress": pending }
+      )}
+      type="submit"
       onClick={handleSubmit}
       disabled={pending}
     >
-      {pending ? "Processing..." : "Bayar"}
+      {label === "bayar" ? (
+        <div className="">{pending ? "Processing..." : "Bayar"}</div>
+      ) : (
+        <div className="">{pending ? "Submiting..." : "Next"}</div>
+      )}
     </button>
   );
 };

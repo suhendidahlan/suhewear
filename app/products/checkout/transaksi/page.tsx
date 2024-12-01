@@ -8,12 +8,8 @@ import {
 } from "@/components/checkout/button-transaksi";
 import type { trsingle } from "@prisma/client";
 import Link from "next/link";
-
-let rupiah = Intl.NumberFormat("id-ID", {
-  style: "currency",
-  currency: "IDR",
-  minimumFractionDigits: 0,
-});
+import { rupiah } from "@/components/intl/intl";
+import { tanggal } from "@/components/intl/intl";
 
 const riwayatTrans = async () => {
   const session: any = await auth();
@@ -46,6 +42,9 @@ const riwayatTrans = async () => {
                     <div className="text-[11px] text-slate-500 italic">
                       No Transaksi : {list.id}
                     </div>
+                    <div className="text-[11px] text-slate-500 italic">
+                      Tanggal : {tanggal.format(list.createdAt)}
+                    </div>
                   </div>
                   <Link
                     href={`/products/checkout/transaksi/${list.id}`}
@@ -60,7 +59,7 @@ const riwayatTrans = async () => {
               ) : (
                 <div className="flex justify-around mx-2 my-4">
                   <DeleteButton id={list.id} />
-                  <ButtonTransaksi id={list} />
+                  <ButtonTransaksi id={list} label="bayar" />
                 </div>
               )}
             </div>
